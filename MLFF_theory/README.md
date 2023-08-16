@@ -103,7 +103,7 @@ $$ \rho_i(\textbf{r}) = \sum_{l=0}^{L_{max}}\sum_{m=-l}^{l}\sum_{n=1}^{N_R^l}c_{
 
 と表されるとする。ここで、 $c_{nlm}^i$ は係数、 $\chi_{nl}(r)$ は動径基底関数、 $Y_{lm}(\hat{\textbf{r}})$ は球面調和関数である。また、 $n$ ,  $l$ ,  $m$ はそれぞれ主量子数、方位量子数、磁気量子数を表す。 $\chi_{nl}(r)$ には以下のような直交関係がある。  
 
-$$ 4\pi\int_{0}^{\infin}\chi_{nl}(r)\chi_{n'l}(r)r^2dr = \delta(n-n') $$
+$$ 4\pi\int_{0}^{\infty}\chi_{nl}(r)\chi_{n'l}(r)r^2dr = \delta(n-n') $$
 
  $\rho_i(\textbf{r})$ を用いて $\rho_i^{(2)}(r)$ ,  $\rho_i^{(3)}(r, s, \theta)$ , $\rho_i(\textbf{r})$ は以下のように変形される。
 
