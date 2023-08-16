@@ -20,7 +20,8 @@
 
 $$
 \hat{H}\psi (\vec{r}) = E\psi (\vec{r})
-$$
+$$  
+
 $$
 \hat{H} = -\frac{\hbar^2}{2m} \nabla^2 + V(\vec{r})
 $$  
@@ -29,7 +30,8 @@ $$
 
 $$
 -\frac{1}{2} \nabla^2 \psi(\vec{r}) - \frac{1}{r}\psi(\vec{r}) = E\psi(\vec{r}) 
-$$
+$$  
+
 $$
 ( r = \sqrt{x^2+y^2+z^2} )
 $$  
@@ -50,7 +52,8 @@ $$
 
 $$
 \hat{H}\psi (\vec{r}) = E\psi (\vec{r})
-$$
+$$  
+
 $$
 \hat{H} = c\vec{\alpha} \cdot {\hat{p}} + \beta mc^2 + V(\vec{r})
 $$  
