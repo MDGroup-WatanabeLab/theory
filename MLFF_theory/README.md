@@ -95,15 +95,25 @@ $$ \rho_i^{(2)}(r) = \frac{1}{4\pi}\int\rho_i(r\hat{\textbf{r}})d\hat{\textbf{r}
 
 ここで、 $\hat{\textbf{r}}$ は $r$ の単位ベクトルを表す。しかし、動径分布関数には角度の情報がないため、角度の情報を追加した角度分布関数 $\rho_i^{(3)}(r, s, \theta)$ を導入する。角度分布関数は、原子 $i$ から距離 $r$ の位置において原子 $j$ が存在する確率密度と距離 $s$ の位置において原子 $k$ が存在する確率密度、 $\angle kij$ の角度 $\theta$ を用いて表す。
 
-$$ \rho_i^{(3)}(r, s, \theta) = \int\int \delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta)\rho_i(r\hat{\textbf{r}})\rho_i^*(s\hat{\textbf{s}})d\hat{\textbf{r}}d\hat{\textbf{s}} $$
+$$ \rho_i^{(3)}(r, s, \theta) = \int\int\delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta)\rho_i(r\hat{\textbf{r}})\rho_i^*(s\hat{\textbf{s}})d\hat{\textbf{r}}d\hat{\textbf{s}} $$
 
  $\rho_i$ が、
 
-$$ \rho_i(\textbf{r}) = \sum_{l=1}^{L_{max}}\sum_{m=-l}^{l}\sum_{n=1}^{N_R^l}c_{nlm}^i\chi_{nl}(r)Y_{lm}(\hat{\textbf{r}}) $$
+$$ \rho_i(\textbf{r}) = \sum_{l=0}^{L_{max}}\sum_{m=-l}^{l}\sum_{n=1}^{N_R^l}c_{nlm}^i\chi_{nl}(r)Y_{lm}(\hat{\textbf{r}}) $$
 
-と表されるとする。ここで、 $c_{nlm}^i$ は係数、 $\chi_{nl}(r)$ は動径基底関数、 $Y_{lm}(\hat{\textbf{r}})$ は球面調和関数である。また、 $n$ ,  $l$ ,  $m$ はそれぞれ主量子数、方位量子数、磁気量子数を表す。  
+と表されるとする。ここで、 $c_{nlm}^i$ は係数、 $\chi_{nl}(r)$ は動径基底関数、 $Y_{lm}(\hat{\textbf{r}})$ は球面調和関数である。また、 $n$ ,  $l$ ,  $m$ はそれぞれ主量子数、方位量子数、磁気量子数を表す。 $\chi_{nl}(r)$ には以下のような直交関係がある。  
 
+$$ 4\pi\int_{0}^{\infin}\chi_{nl}(r)\chi_{n'l}(r)r^2dr = \delta(n-n') $$
 
+ $\rho_i(\textbf{r})$ を用いて $\rho_i^{(2)}(r)$ ,  $\rho_i^{(3)}(r, s, \theta)$ , $\rho_i(\textbf{r})$ は以下のように変形される。
+
+$$ \rho_i^{(2)}(r) = \frac{1}{\sqrt{4\pi}}\sum_{n=1}^{N_R^0}c_{n00}^i\chi_{nl}(r) $$
+
+$$ \rho_i^{(3)}(r, s, \theta) = \sum_{l=1}^{L_{max}}\sum_{n=1}^{N_R^l}\sum_{\nu=1}^{N_R^l}\sqrt{\frac{2l+1}{2}} \times P_{n \nu l}^i\chi_{nl}(r)\chi_{\nu l}(s)P_l(cos\theta) $$
+
+$$ P_{n \nu l}^i = \sqrt{\frac{8\pi^2}{2l+1}}\sum_{m=-l}^{l}c_{nlm}^ic_{\nu lm}^{i*} $$
+
+ここで、 $P_l$ は次数 $l$ のルジャンドル多項式である。
 
 [<sub>手順に戻る</sub>](#手順)
 
