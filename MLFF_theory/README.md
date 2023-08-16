@@ -88,7 +88,7 @@ $$ U = \sum_{i=1}^{Na} U_i $$
 
 $$ \rho_i(\textbf{r}) = \sum_{j=1}^{N_a} f_{cut}(r_{ij})g(\textbf{r}-\textbf{r}_{ij}) $$
 
-ここで、 $f_{cut}$ は半径 $R_{cut}$ より外側の情報を滑らかに除去するカットオフ関数である（詳しくは不明だがsmooth cutoffのことっぽい？）。また、 $r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i| $ 、 $g(\textbf{r})$ はデルタ関数 $\delta(\textbf{r})$ である。局所エネルギー $U_i$ を確率密度 $\rho_i$ の関数であるとすると、 $U_i = F[\rho_i(\textbf{r})]$ となる。  
+ここで、 $f_{cut}$ は半径 $R_{cut}$ より外側の情報を滑らかに除去するカットオフ関数である（詳しくは不明だがsmooth cutoffのことっぽい？）。また、 $r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|$ 、 $g(\textbf{r})$ はデルタ関数 $\delta(\textbf{r})$ である。局所エネルギー $U_i$ を確率密度 $\rho_i$ の関数であるとすると、 $U_i = F[\rho_i(\textbf{r})]$ となる。  
 &emsp;これらを数値的に考えるためのもっとも簡単な方法が、確率密度関数を有限個の基底関数の線形結合で表し、係数の関数に変換することである。この時導入するのが記述子であり、記述子は回転や平行移動に対して不変である必要がある。最も単純な記述子は以下で定義される動径分布関数 $\rho_i^{(2)}(r)$ である。
 
 $$ \rho_i^{(2)}(r) = \frac{1}{4\pi}\int\rho_i(r\hat{\textbf{r}})d\hat{\textbf{r}} $$
