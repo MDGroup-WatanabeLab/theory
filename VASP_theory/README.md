@@ -146,7 +146,7 @@ $$
 1番のN表示可能性は __「可能」__ だが、電子密度に次の制約を課す必要がある。
 
 $$  
-\rho (\vec{r}) \geq 0, \int \rho(\vec{r})d\vec{r} = 0, \int|\nabla\rho(\vec{r})^{\frac{1}{2}}|^2 d\vec{r} < \infin
+\rho (\vec{r}) \geq 0, \int \rho(\vec{r})d\vec{r} = 0, \int|\nabla\rho(\vec{r})^{\frac{1}{2}}|^2 d\vec{r} < ∞
 $$  
 
 一方、2番目のv表示可能性は __「不可能」__ である。なので、基底状態と言えないような電子密度が存在してしまうということである。密度汎関数法が発表された当時はあまり問題にならなかったが、のちにこのv表示可能性の反例が次々に見つかったそうである。つまり、
@@ -160,7 +160,7 @@ $$
 ### 1.3. Levy-Liebの密度汎関数
 　先の節で述べた問題を解決するため、LevyとLiebは[1979年の論文](https://www.pnas.org/doi/abs/10.1073/pnas.76.12.6062)と[1983年の論文](https://onlinelibrary.wiley.com/doi/10.1002/qua.560240302)で、密度汎関数 $E_{HK} [\rho]$ を書き直した。その式は、以下の通りであり、 __「Levy-Liebの密度汎関数」__ と呼ばれる。  
 
-$$  
+$$
 F_{LL} [\rho] = \min_{\psi \to \rho(\vec{r})} \int\psi^*_{\rho(\vec{r})} (\vec{r_1}, \vec{r_2}, \cdot \cdot \cdot , \vec{r_N})(\hat{T}+\hat{V_{ee}}) \psi_{\rho(\vec{r})}(\vec{r_1}, \vec{r_2}, \cdot \cdot \cdot , \vec{r_N}) dr_1dr_2\cdot\cdot\cdot dr_N
 $$  
 
