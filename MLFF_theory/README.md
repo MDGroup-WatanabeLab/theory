@@ -37,13 +37,13 @@ flowchart TB
     - 構造内の全原子が局所参照構造としてサンプリングされ、力場が構築される  
 
 - 力場が存在する場合  
-    - いずれかの原子の力のベイズ誤差が厳密な閾値（ML_CDOUB $\times$ ML_CTIFOR）を超えている場合
+    - いずれかの原子の力のベイズ誤差が厳密な閾値（ML_CDOUB $`\times`$ ML_CTIFOR）を超えている場合
         - 局所参照構造がサンプリングされ、力場が改善される  
-    - いずれかの原子の力のベイズ誤差が閾値（ML_CTIFOR）より大きく、厳密な閾値（ML_CDOUB $\times$ ML_CTIFOR）より小さい場合
+    - いずれかの原子の力のベイズ誤差が閾値（ML_CTIFOR）より大きく、厳密な閾値（ML_CDOUB $`\times`$ ML_CTIFOR）より小さい場合
         - 構造は学習の候補として追加される
         - 候補として保存出来る数はML_MCONF_NEWで設定されており、追加された候補の数が設定された値に達したら力場を更新する
         - 構造を候補として追加した場合、次に候補として追加するには最低限ML_NMDINTで設定されたステップ分だけ間隔を開ける<br>ただし、厳密な閾値を超えない場合に限る
-    - 全ての原子の力のベイズ誤差が厳密な閾値（ML_CDOUB $\times$ ML_CTIFOR）未満の場合
+    - 全ての原子の力のベイズ誤差が厳密な閾値（ML_CDOUB $`\times`$ ML_CTIFOR）未満の場合
         - 第一原理計算は実行されない
 
 
@@ -127,7 +127,7 @@ U_i = F[\rho_i^{(2)}(r), \rho_i^{(3)}(r, s, \theta)]
 ```math
 F[\rho_i^{(2)}(r), \rho_i^{(3)}(r, s, \theta)] = \sum_{i_B=1}^{N_B}w_{i_B}K(\textbf{X}_i, \textbf{X}_{i_B})
 ```
-ここで、 $`\textbf{X}_i`$ は係数 $`c_{n00}^i`$ , $`P_{n \nu l}^i`$ を含むベクトル、 $`w_{i_B}`$ は係数である。また、関数 $K$ は対象の局所構造と局所参照構造の類似性を測る関数（おそらくカーネル関数のこと？）であり、二つの構造が似ていれば1に近づき、似ていなければ小さな値となる。関数 $`K`$ は以下のように表される。
+ここで、 $`\textbf{X}_i`$ は係数 $`c_{n00}^i`$ , $`P_{n \nu l}^i`$ を含むベクトル、 $`w_{i_B}`$ は係数である。また、関数 $`K`$ は対象の局所構造と局所参照構造の類似性を測る関数（おそらくカーネル関数のこと？）であり、二つの構造が似ていれば1に近づき、似ていなければ小さな値となる。関数 $`K`$ は以下のように表される。
 ```math
 K(\textbf{X}_i, \textbf{X}_{i_B}) = \beta^{(2)}(\textbf{X}_i^{(2)}\cdot\textbf{X}_{i_B}^{(2)})+\beta^{(3)}(\hat{\textbf{X}}_i^{(3)}\cdot\hat{\textbf{X}}_{i_B}^{(3)})^{\zeta^{(3)}}
 ```
@@ -177,7 +177,7 @@ https://hyogo-bl.jp/docs/pdf/status-report/2020.08.26MI_Fujii.pdf
 ```math
 m^\alpha = 1+3N_a^\alpha+6
 ```
-エネルギー、力、応力テンソルはそれぞれ参照構造データセットのエネルギー、力、応力テンソルの標準偏差で割ることで無次元化されている。また、 $`\textbf{w}`$ は $`N_B`$ 次元列ベクトルであり、係数 $`w_{i_B}`$ から構成される。 $`\boldsymbol{\phi}^\alpha`$ は $`m^\alpha \times N_B`$ 行列であり、1行目は $`\sum_{i=1}^{N_a^\alpha}\frac{K(\textbf{X}_i^\alpha, \textbf{X}_{i_B})}{N_a^\alpha}`$ 、2行目以降は構造 $`\alpha`$ の原子座標に関するエネルギーの導関数（？）等から成る（原文はfirst line, second lineと表記されており、列ベクトルに対してもfirst line, second lineと記述されていたので行と訳した）。  
+エネルギー、力、応力テンソルはそれぞれ参照構造データセットのエネルギー、力、応力テンソルの標準偏差で割ることで無次元化されている。また、 $`\textbf{w}`$ は $`N_B`$ 次元列ベクトルであり、係数 $`w_{i_B}`$ から構成される。 $`\boldsymbol{\phi}^\alpha`$ は $`m^\alpha \times N_B`$ 行列であり、1行目は $`\sum\nolimits_{i=1}^{N_a^\alpha}\frac{K(\textbf{X}_i^\alpha, \textbf{X}_{i_B})}{N_a^\alpha}`$ 、2行目以降は構造 $`\alpha`$ の原子座標に関するエネルギーの導関数（？）等から成る（原文はfirst line, second lineと表記されており、列ベクトルに対してもfirst line, second lineと記述されていたので行と訳した）。  
 
 &emsp;記述子 $`\textbf{x}_i`$ を持つ新しい構造のエネルギー、力を得るために以下の式を用いることが出来る。
 ```math
@@ -196,7 +196,7 @@ p(\textbf{w}|\textbf{Y}) = \mathcal{N}(\bar{\textbf{w}}, \boldsymbol{\Sigma})
 ```math
 \boldsymbol{\Sigma}^{-1} = \frac{1}{\sigma_w^2}\textbf{I}+\frac{1}{\sigma_v^2}\boldsymbol{\Phi}^T\boldsymbol{\Phi}
 ```
-ここで、 $`\textbf{Y}`$ は参照構造データセットにおける全ての第一原理計算によるエネルギー、力、応力テンソルを含んでいる、大きさ $`M = \sum_{\alpha=1}^{N_{st}}m^\alpha`$ のスーパーベクトル（高次元ベクトル）と呼ばれる。また、 $`\boldsymbol{\Phi}`$ は全ての参照構造データセットにおける行列 $\boldsymbol{\phi}^\alpha$ の集合となる $M \times N_B$ の計画行列、 $\textbf{I}$ は単位行列である。加えて、 $`\sigma_v^2`$ , $`\sigma_w^2`$ は力場の精度と堅牢性のバランスを取るために最適化されたパラメータを表す。さらに、 $`\mathcal{N}(\bar{\textbf{w}}, \boldsymbol{\Sigma})`$ は $`\bar{\textbf{w}}`$ を中心とする多次元正規化ガウス関数（multidimensional normalized Gaussian）であり、以下に定義される。
+ここで、 $`\textbf{Y}`$ は参照構造データセットにおける全ての第一原理計算によるエネルギー、力、応力テンソルを含んでいる、大きさ $`M = \sum\nolimits_{\alpha=1}^{N_{st}}m^\alpha`$ のスーパーベクトル（高次元ベクトル）と呼ばれる。また、 $`\boldsymbol{\Phi}`$ は全ての参照構造データセットにおける行列 $`\boldsymbol{\phi}^\alpha`$ の集合となる $`M \times N_B`$ の計画行列、 $`\textbf{I}`$ は単位行列である。加えて、 $`\sigma_v^2`$ , $`\sigma_w^2`$ は力場の精度と堅牢性のバランスを取るために最適化されたパラメータを表す。さらに、 $`\mathcal{N}(\bar{\textbf{w}}, \boldsymbol{\Sigma})`$ は $`\bar{\textbf{w}}`$ を中心とする多次元正規化ガウス関数（multidimensional normalized Gaussian）であり、以下に定義される。
 ```math
 \mathcal{N}(\bar{\textbf{w}}, \boldsymbol{\Sigma}) = \frac{1}{\sqrt{(2\pi)^{N_B}\|\boldsymbol{\Sigma}\|}} \times \exp \left[-\frac{(\textbf{w}-\bar{\textbf{w}})^T\boldsymbol{\Sigma}^{-1}(\textbf{w}-\bar{\textbf{w}})}{2}\right]
 ```
