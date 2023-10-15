@@ -205,11 +205,6 @@ $$
 E = \frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}
 ```
 
-また、
-
-```math 
-E= \frac{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \phi_i(\vec{r_i})}
-```
 
 軌道の組 { $\phi_i$ } に対する変分法より、この期待値を停留にする1電子波動関数の組 { $\phi_i$ } を求めるSchrödinger方程式は、  
 
@@ -255,8 +250,9 @@ $$
 
 $C$ は分子軌道係数、 $\chi$ は原子軌道を表す。ハミルトニアン演算子の期待値 $E$ は、  
 
-
-$$E= \frac{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \phi_i(\vec{r_i})}$$
+```math
+E = \frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}
+```
 
 を用いて、
 
