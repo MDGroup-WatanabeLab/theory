@@ -201,9 +201,16 @@ $$
 
 と書くことができる。このときのハミルトニアン演算子の期待値 $E$ は、  
 
-```math
+$$
 E = \frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}
-```
+$$
+
+また、
+
+$$
+E= \frac{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \phi_i(\vec{r_i})}
+$$
+
 
 
 軌道の組 { $\phi_i$ } に対する変分法より、この期待値を停留にする1電子波動関数の組 { $\phi_i$ } を求めるSchrödinger方程式は、  
@@ -241,7 +248,7 @@ $$
 $$  
 
 ちなみに、[前の節](#111-hartree法)に出てきたヘリウム原子と比べると、水素分子は原子核が2つあるので、電子の位置ベクトルもより複雑になる。つまり、より複雑なハミルトニアンになっていることは忘れてはいけない。  
-　この問題を解決するのが、__分子軌道__ の概念である。フントが1926年に提唱し、マリケンが1927年に発表した。そして、1932年にレナード・ジョーンズが分子軌道を原子軌道の線形結合で表す、__LCAO-MO 近似__ (Linear Combination of Atomic Orbitals - Molecular Orbital approximation) を経験的推測として発表した。そして、1938年にこの近似を水素分子に適用したのが九―ルソンであり、これが、__分子軌道法__ の始まりである。  
+　この問題を解決するのが、__分子軌道__ の概念である。フントが1926年に提唱し、マリケンが1927年に発表した。そして、1932年にレナード・ジョーンズが分子軌道を原子軌道の線形結合で表す、__LCAO-MO 近似__ (Linear Combination of Atomic Orbitals - Molecular Orbital approximation) を経験的推測として発表した。そして、1938年にこの近似を水素分子に適用したのがクールソンであり、これが、__分子軌道法__ の始まりである。  
 　では、具体的に式で見ていく。LCAO-MO 近似に基づき、水素分子の分子軌道は、  
 
 $$  
@@ -250,9 +257,10 @@ $$
 
 $C$ は分子軌道係数、 $\chi$ は原子軌道を表す。ハミルトニアン演算子の期待値 $E$ は、  
 
-```math
-E = \frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}
-```
+
+$$
+E= \frac{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i})   \hat{h} \phi(\vec{r_i}) }{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^*(\vec{r_i}) \phi_i(\vec{r_i}) }
+$$
 
 を用いて、
 
