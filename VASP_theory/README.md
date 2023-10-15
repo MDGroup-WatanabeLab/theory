@@ -208,7 +208,7 @@ $$
 また、
 
 $$
-E= \frac{ \Sigma_i^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_i^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
+E= \frac{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
 $$
 
 
@@ -257,9 +257,8 @@ $$
 
 $C$ は分子軌道係数、 $\chi$ は原子軌道を表す。ハミルトニアン演算子の期待値 $E$ は、  
 
-
 $$
-E= \frac{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i})   \hat{h} \phi(\vec{r_i}) }{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i}) }
+E= \frac{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
 $$
 
 を用いて、
