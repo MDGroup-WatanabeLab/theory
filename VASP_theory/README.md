@@ -329,11 +329,11 @@ $$
 となる。ここで、__Pauliの排他律__ を思い出してほしい。４つの[量子数](#09-量子数)がすべて同じ電子は存在しないとされる。したがって、水素分子の場合、 $\phi_+$ 軌道はスピンが異なる二つの電子に占有される。つまり、水素分子の波動関数は、  
 
 $$  
-\Phi = \phi_+(\vec{r_1})\phi_+(\vec{r_2})\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad
+\Phi = \phi_+(\vec{r_1})\phi_+(\vec{r_2})
 $$  
 
 $$  
-= \frac{1}{2+2S_{12}} \left\{ \chi_1(\vec{r_1})+ \chi_2(\vec{r_1}) \right\} \left\{ \chi_1(\vec{r_2})+ \chi_2(\vec{r_2}) \right\}
+\Phi = \frac{1}{2+2S_{12}} \left\{ \chi_1(\vec{r_1})+ \chi_2(\vec{r_1}) \right\} \left\{ \chi_1(\vec{r_2})+ \chi_2(\vec{r_2}) \right\}
 $$  
 
 と書き表される。したがって、水素分子の全エネルギーは、スピンの向きがエネルギーの大きさに影響を及ぼさないので、  
