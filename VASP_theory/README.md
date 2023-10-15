@@ -330,7 +330,6 @@ $$
 
 $$  
 \Phi = \phi_+(\vec{r_1})\phi_+(\vec{r_2})\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad
-
 $$  
 
 $$  
