@@ -378,18 +378,18 @@ $$
 
 
 $$  
-\Psi^{(A)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \left\{\Psi(\vec{r_1}, \vec{r_2})-\Psi(\vec{r_2}, \vec{r_1}) \right\} = -\Psi^{(A)}(\vec{r_2}, \vec{r_1})
+\Psi^{(A)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\Psi(\vec{r_1}, \vec{r_2})-\Psi(\vec{r_2}, \vec{r_1}) \} = -\Psi^{(A)}(\vec{r_2}, \vec{r_1})
 $$  
 
 さらに、Hartree波動関数についても考えると、
 
 $$  
-\Psi^{(S)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \left\{\phi_1 (\vec{r_1})\phi_2 (\vec{r_2})+\phi_1(\vec{r_2})\phi_2 (\vec{r_1}) \right\}
+\Psi^{(S)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\phi_1 (\vec{r_1})\phi_2 (\vec{r_2})+\phi_1(\vec{r_2})\phi_2 (\vec{r_1}) \}
 $$  
 
 
 $$  
-\Psi^{(A)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \left\{\phi_1 (\vec{r_1})\phi_2 (\vec{r_2})-\phi_1(\vec{r_2})\phi_2 (\vec{r_1}) \right\}
+\Psi^{(A)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\phi_1 (\vec{r_1})\phi_2 (\vec{r_2})-\phi_1(\vec{r_2})\phi_2 (\vec{r_1}) \}
 $$ 
 
 ここで、気を付けるべきなのは、__Pauliの排他律を満たしているのは、反対称波動関数だけ__ という点である。すなわち、__電子は反対称波動関数を持つ__ ことがわかる。反対称波動関数を行列式で書くと、
