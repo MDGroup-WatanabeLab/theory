@@ -361,7 +361,7 @@ $$
 2電子を入れ替える交換演算子 $\hat{P}_{12}$ について、  
 
 $$  
-\hat{H}(\vec{r_1}, \vec{r_2}) \hat{P} _{12} \Psi(\vec{r_1}, \vec{r_2}) = \hat{P}_{12} \hat{H}(\vec{r_1}, \vec{r_2}) \Psi(\vec{r_1}, \vec{r_2})
+\hat{H}(\vec{r_1}, \vec{r_2}) \hat{P}_{12} \Psi(\vec{r_1}, \vec{r_2}) = \hat{P}_{12} \hat{H}(\vec{r_1}, \vec{r_2}) \Psi(\vec{r_1}, \vec{r_2})
 $$  
 
 つまり、  
