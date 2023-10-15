@@ -329,7 +329,8 @@ $$
 となる。ここで、__Pauliの排他律__ を思い出してほしい。４つの[量子数](#09-量子数)がすべて同じ電子は存在しないとされる。したがって、水素分子の場合、 $\phi_+$ 軌道はスピンが異なる二つの電子に占有される。つまり、水素分子の波動関数は、  
 
 $$  
-\Phi = \phi_+(\vec{r_1})\phi_+(\vec{r_2})\qquad\qquad\qquad\qquad\qquad\qquad\qquad\,\,\,\,
+\Phi = \phi_+(\vec{r_1})\phi_+(\vec{r_2})\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad
+
 $$  
 
 $$  
@@ -361,7 +362,7 @@ $$
 2電子を入れ替える交換演算子 $\hat{P}_{12}$ について、  
 
 $$  
-\hat{H}(\vec{r_1}, \vec{r_2}) \hat{P}_{12} \Psi(\vec{r_1}, \vec{r_2}) = \hat{P}_{12} \hat{H}(\vec{r_1}, \vec{r_2}) \Psi(\vec{r_1}, \vec{r_2})
+\hat{H}(\vec{r_1}, \vec{r_2}) \hat{P} _{12} \Psi(\vec{r_1}, \vec{r_2}) = \hat{P}_{12} \hat{H}(\vec{r_1}, \vec{r_2}) \Psi(\vec{r_1}, \vec{r_2})
 $$  
 
 つまり、  
