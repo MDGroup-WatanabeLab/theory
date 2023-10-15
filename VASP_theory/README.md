@@ -208,7 +208,7 @@ $$
 また、
 
 $$
-E= \frac{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \sum_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
+E= \frac{ \sum_i^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \sum_i^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
 $$
 
 
