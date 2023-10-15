@@ -202,7 +202,7 @@ $$
 と書くことができる。このときのハミルトニアン演算子の期待値 $E$ は、  
 
 $$  
-E=\frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}
+E=\frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^*(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}  
 $$  
 
 
