@@ -80,16 +80,23 @@ flowchart TB
 ```math
 U = \sum_{i=1}^{Na} U_i
 ```
-局所エネルギー $`U_i`$ は原子 $`i`$ の周囲の局所環境により決められると考える。局所環境を表すために原子 $`i`$ の周囲における原子分布を考える。この分布は、原子 $`i`$ を中心とした半径 $`R_{cut}`$ の円について、位置 $`r \ (r \leqq R_{cut})`$ において原子 $`j \ (j \neq i)`$ が存在する確率密度 $`\rho_i`$ で表される。  
+局所エネルギー $`U_i`$ は原子 $`i`$ の周囲の局所環境により決められる。局所環境を表すために原子 $`i`$ の周囲における原子の分布を考える。この分布は、原子 $`i`$ を中心としたとき、位置 $`r \ (r \leqq R_{cut})`$ において原子 $`j \ (j \neq i)`$ が存在する確率密度 $`\rho_i`$ で表される。  
 ```math
 \rho_i(\textbf{r}) = \sum_{j=1}^{N_a} f_{cut}(r_{ij})g(\textbf{r}-\textbf{r}_{ij})
 ```
-ここで、 $`f_{cut}`$ は半径 $`R_{cut}`$ より外側の情報を除去するカットオフ関数らしい（詳しくは不明だがsmooth cutoffのことっぽい？）。また、 $`r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|`$ 、 $`g(\textbf{r})`$ はデルタ関数 $`\delta(\textbf{r})`$ である。局所エネルギー $`U_i`$ を確率密度 $`\rho_i`$ の関数であるとすると、 $`U_i = F[\rho_i(\textbf{r})]`$ となる。  
-&emsp;これらを数値的に考える方法は、確率密度関数を有限個の基底関数の線形結合で表し、係数の関数に変換する方法である。この時導入するのが記述子であり、記述子は回転や平行移動に対して不変である必要がある。導入する記述子は以下で定義される動径分布関数 $`\rho_i^{(2)}(r)`$ である。
+ここで、 $`f_{cut}`$ は $`R_{cut}`$ より外側の情報を除去するカットオフ関数である。
+```math
+f_{cut} = \begin{cases} 
+\frac{1}{2}(cos(\pi\frac{r_{ij}}{R_{cut}}) + 1) && (r_{ij} \le R_{cut}) \\ 
+0 && (r_{ij} > R_{cut})
+\end{cases}
+```
+ここで、 $`r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|`$ 、 $`g(\textbf{r})`$ はデルタ関数 $`\delta(\textbf{r})`$ である。局所エネルギー $`U_i`$ を確率密度 $`\rho_i`$ の関数であるとすると、 $`U_i = F[\rho_i(\textbf{r})]`$ となる。  
+&emsp;局所環境を表すために二つの記述子を導入する。記述子は回転や平行移動に対して不変である必要がある。一つ目は動径分布関数 $`\rho_i^{(2)}(r)`$ である。
 ```math
 \rho_i^{(2)}(r) = \frac{1}{4\pi}\int\rho_i(r\hat{\textbf{r}})d\hat{\textbf{r}}
 ```
-ここで、 $`\hat{\textbf{r}}`$ は $r$ の単位ベクトルを表す。しかし、動径分布関数には角度の情報がないため、角度の情報を追加した角度分布関数 $`\rho_i^{(3)}(r, s, \theta)`$ を導入する。角度分布関数は、原子 $`i`$ から距離 $`r`$ の位置において原子 $`j`$ が存在する確率密度、距離 $`s`$ の位置において原子 $`k`$ が存在する確率密度、 $`\angle kij`$ の角度 $`\theta`$ を用いて表す。
+ここで、 $`\hat{\textbf{r}}`$ は $r$ の単位ベクトルを表す。二つ目は角度分布関数 $`\rho_i^{(3)}(r, s, \theta)`$ である。角度分布関数は、原子 $`i`$ から距離 $`r`$ の位置において原子 $`j`$ が存在する確率密度、距離 $`s`$ の位置において原子 $`k`$ が存在する確率密度、 $`\angle kij`$ の角度 $`\theta`$ を用いて表す。
 ```math
 \rho_i^{(3)}(r, s, \theta) = \int\int\delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta)\rho_i(r\hat{\textbf{r}})\rho_i^*(s\hat{\textbf{s}})d\hat{\textbf{r}}d\hat{\textbf{s}}
 ```
@@ -121,7 +128,7 @@ U_i = F[\rho_i^{(2)}(r), \rho_i^{(3)}(r, s, \theta)]
 ```math
 F[\rho_i^{(2)}(r), \rho_i^{(3)}(r, s, \theta)] = \sum_{i_B=1}^{N_B}w_{i_B}K(\textbf{X}_i, \textbf{X}_{i_B})
 ```
-ここで、 $`\textbf{X}_i`$ は係数 $`c_{n00}^i`$ , $`P_{n \nu l}^i`$ を含むベクトル、 $`w_{i_B}`$ は係数である。また、関数 $`K`$ は対象の局所構造と局所参照構造の類似性を測る関数（カーネルのこと）であり、二つの構造が似ていれば1に近づき、似ていなければ小さな値となる。関数 $`K`$ は以下のように表される。
+ここで、 $`\textbf{X}_i`$ は係数 $`c_{n00}^i`$ , $`P_{n \nu l}^i`$ を含むベクトル、 $`w_{i_B}`$ は係数である。また、関数 $`K`$ は対象の局所構造と局所参照構造の類似性を測る関数（カーネルのこと）であり、二つの構造が似ていれば1に近づく。関数 $`K`$ は以下のように表される。
 ```math
 K(\textbf{X}_i, \textbf{X}_{i_B}) = \beta^{(2)}(\textbf{X}_i^{(2)}\cdot\textbf{X}_{i_B}^{(2)})+\beta^{(3)}(\hat{\textbf{X}}_i^{(3)}\cdot\hat{\textbf{X}}_{i_B}^{(3)})^{\zeta^{(3)}}
 ```
@@ -216,8 +223,7 @@ E(\textbf{w}) = \frac{1}{2\sigma_v^2}\|\boldsymbol{\Phi}\textbf{w}-\textbf{Y}\|^
 
 ## リッジ回帰  
 重回帰分析の損失関数に正則化項を加えたのもがリッジ回帰になる
-https://qiita.com/Takayoshi_Makabe/items/8f6dcb25124b9dcb1ae8
-
+https://qiita.com/Takayoshi_Makabe/items/8f6dcb25124b9dcb1ae8  
 
 ## On-the-flyで第一原理計算の実行を決定するためのアルゴリズム
 ![decision_dft](https://github.com/MDGroup-WatanabeLab/image_for_mdpython/assets/139113059/e2842a3b-5473-4d7b-950d-9feb42aa4037)
