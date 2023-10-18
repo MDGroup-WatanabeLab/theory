@@ -376,7 +376,7 @@ $$
 \hat{P}^2_{12}=1 \rightarrow \lambda = \pm 1
 $$  
 
-なので、交換演算子の固有値が $\pm 1$ である波動関数をそれぞれ対称波動関数と反対称波動関数とすると、規格化すると次のように表せる。  
+なので、交換演算子の固有値が $\pm 1$ である波動関数をそれぞれ対称波動関数と反対称波動関数とすると、規格化した場合、次のように表せる。  
 
 $$  
 \Psi^{(S)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\Psi(\vec{r_1}, \vec{r_2})+\Psi(\vec{r_2}, \vec{r_1}) \}=\Psi^{(S)}(\vec{r_2}, \vec{r_1})
@@ -420,10 +420,39 @@ $$
 \end{vmatrix}
 $$ 
 
-この行列こそが、__スレーター行列式__ である。
+この行列こそが、slaterが1929年に発表した __Slater行列式__ である。
 
 ### 1.1.4 Hartree-Fock法
-&emsp;ようやく、本編に入ることができる。章のタイトルにもなっているHartree-Fock法は1930年にFockが提案した。なお、Slaterも同じ年に同じ提案をしている。
+&emsp;ようやく、本編に入ることができる。章のタイトルにもなっているHartree-Fock法は1930年にFockが提案した。なお、Slaterも同じ年に同じ提案をしている。  
+　まずは、n個の軌道に電子が２つずつ占有していく系を考える。このときのSlater行列式は、  
+
+$$  
+\Phi(\{\vec{r}, \vec{\sigma}\})=\frac{1}{\sqrt{(2n)!}} det|\phi_1(\vec{r_1}, \alpha)\phi_1(\vec{r_2}, \beta)\cdots \phi_n(\vec{r_{2n-1}}, \alpha)\phi_n(\vec{r_{2n-1}}, \beta)|
+$$  
+
+なお、
+
+$$  
+\{\vec{r}, \vec{\sigma}\} = \{ \vec{r_1}\vec{\sigma_1}\cdots \vec{r_{2n}}\vec{\sigma_{2n}}\}
+$$  
+
+である。期待値 $E$ を求めると、
+
+$$
+E= \frac{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
+$$
+
+を用いて、  
+
+$$  
+E = \frac{1}{(2n)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \hat{H}\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+$$  
+
+と書ける。ここで、1電子積分と2電子積分はそれぞれ、電子の区別がつかないことから、 $2n$ 個、 ${}_{2n} C_2 = n(2n-1)$ 個同じものがある。なので、期待値はつぎのように変形できる。  
+
+$$  
+E=\frac{1}{(2n-1)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \left( -\frac{\mathbb{\nabla^2}}{2}+V_{ne} \right)\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|+\frac{1}{2(2n-2)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \frac{1}{r_{12}} \ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+$$  
 
 ### 1.2. Kohn-Sham法
 &emsp;では、次に、Kohn-Sham法について解説する。
