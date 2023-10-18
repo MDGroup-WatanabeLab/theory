@@ -537,8 +537,69 @@ $$
 である。Hartree法のときと同様、期待値の軌道に対する変分 $\frac{\partial E}{\partial \phi_i}$ が０になる停留条件を課すと、変分法より、  
 
 $$  
-\left\{ k \right\}
+\left[ h_i+\sum_j^n \left( 2\hat{J}_j -\hat{K}_j \right) \right]\phi_i = \sum_j \phi_j \epsilon_{ji}
 $$  
+
+$$  
+\left[ h_i^\ast+\sum_j^n \left( 2\hat{J}_j^\ast -\hat{K}_j^\ast \right) \right]\phi_i^\ast = \sum_j \phi_j ^\ast\epsilon_{ji}^\ast
+$$  
+
+と書ける。この式における、 $\hat{J}_j, \hat{K}_j$ はそれぞれ、クーロン演算子、交換演算子と呼ばれ、次の式で表される。  
+
+$$  
+\hat{J}_j(\vec{r_1})\phi_i(\vec{r_1}) = \int d^3\vec{r_2}\phi^\ast_j(\vec{r_2})\phi_j(\vec{r_2})\frac{1}{r_{12}}\phi_i(\vec{r_1})\qquad\left( \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{J}_j(\vec{r_1})\phi_i(\vec{r_1}) = J_{ij} \right)
+$$  
+
+$$  
+\hat{K}_j(\vec{r_1})\phi_i(\vec{r_1}) = \int d^3\vec{r_2}\phi^\ast_j(\vec{r_2})\phi_i(\vec{r_2})\frac{1}{r_{12}}\phi_j(\vec{r_1})\qquad\left( \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{K}_j(\vec{r_1})\phi_i(\vec{r_1}) = K_{ij} \right)
+$$   
+
+さらに、次のようなFock演算子を定義すると、  
+
+$$  
+\hat{F} = h_i+\sum_j^n \left( 2\hat{J}_j -\hat{K}_j \right)
+$$  
+
+1電子に関する次の方程式が立てられる。  
+
+$$  
+\hat{F} \phi_i = \epsilon_i \phi_i
+$$  
+
+この式を、 __Hartree-Fock方程式__ と呼ぶ。この式から、軌道エネルギー $\epsilon_i$ は、  
+
+$$  
+\epsilon_i = \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{F} \phi_i(\vec{r_1})
+$$  
+
+$$  
+\ \ \ \ \  = h_i+\sum_j^n \left( 2\hat{J}_{ij} -\hat{K}_{ij} \right)
+$$  
+
+で表される。なので、全電子エネルギーEは、各軌道に電子が2個ずつあることと2電子積分の重複に注意すると、  
+
+$$  
+E= 2\sum_i^n \epsilon_i-\sum_{i, j}^n \left( 2\hat{J}_{ij} -\hat{K}_{ij} \right)
+$$  
+
+$$  
+\ \ \ \ = 2\sum_i^n h_i+\sum_{i, j}^n \left( 2\hat{J}_{ij} -\hat{K}_{ij} \right)
+$$  
+
+$$  
+=\sum_i^n (\epsilon_i + h_i)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+$$  
+
+以上から、全電子エネルギーEと核反発エネルギーの和が全エネルギーとなるので、  
+
+$$  
+E_{total} = E + \sum_{A \not ={B}} \frac{Z_A Z_B}{R_{AB}}
+$$  
+
+で求められる。  
+　実際に、この方程式を解く際は、SCF法が用いられるが、詳細は後の章で述べる。このSCF法についても、人の手で解くにはあまりにも複雑すぎるため、コンピュータの登場まで用いられることはなかったそうである。  
+
+### 1.1.5. Roothaan法
 
 ### 1.2. Kohn-Sham法
 &emsp;では、次に、Kohn-Sham法について解説する。
