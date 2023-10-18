@@ -536,9 +536,9 @@ $$
 
 である。Hartree法のときと同様、期待値の軌道に対する変分 $\frac{\partial E}{\partial \phi_i}$ が０になる停留条件を課すと、変分法より、  
 
-$$  
+```math  
 \left[ h_i+\sum_j^n \left( 2\hat{J}_j -\hat{K}_j \right) \right]\phi_i = \sum_j \phi_j \epsilon_{ji}
-$$  
+```  
 
 $$  
 \left[ h_i^\ast+\sum_j^n \left( 2\hat{J}_j^\ast -\hat{K}_j^\ast \right) \right]\phi_i^\ast = \sum_j \phi_j ^\ast\epsilon_{ji}^\ast
