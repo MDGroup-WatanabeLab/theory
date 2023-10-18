@@ -540,19 +540,19 @@ $$
 \left[ h_i+\sum_j^n \left( 2\hat{J}_j -\hat{K}_j \right) \right]\phi_i = \sum_j \phi_j \epsilon_{ji}
 ```  
 
-$$  
+```math 
 \left[ h_i^\ast+\sum_j^n \left( 2\hat{J}_j^\ast -\hat{K}_j^\ast \right) \right]\phi_i^\ast = \sum_j \phi_j ^\ast\epsilon_{ji}^\ast
-$$  
+``` 
 
 と書ける。この式における、 $\hat{J}_j, \hat{K}_j$ はそれぞれ、クーロン演算子、交換演算子と呼ばれ、次の式で表される。  
 
-$$  
+```math  
 \hat{J}_j(\vec{r_1})\phi_i(\vec{r_1}) = \int d^3\vec{r_2}\phi^\ast_j(\vec{r_2})\phi_j(\vec{r_2})\frac{1}{r_{12}}\phi_i(\vec{r_1})\qquad\left( \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{J}_j(\vec{r_1})\phi_i(\vec{r_1}) = J_{ij} \right)
-$$  
+```  
 
-$$  
+```math  
 \hat{K}_j(\vec{r_1})\phi_i(\vec{r_1}) = \int d^3\vec{r_2}\phi^\ast_j(\vec{r_2})\phi_i(\vec{r_2})\frac{1}{r_{12}}\phi_j(\vec{r_1})\qquad\left( \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{K}_j(\vec{r_1})\phi_i(\vec{r_1}) = K_{ij} \right)
-$$   
+```   
 
 さらに、次のようなFock演算子を定義すると、  
 
