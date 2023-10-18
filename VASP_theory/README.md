@@ -515,7 +515,7 @@ $$
 したがって、1電子積分については、同じものが $(2n-1)!$ 個出てくることに加え、スピン $\alpha, \beta$ に同じ空間軌道を用いると、  
 
 $$  
-2 \sum_i^n \int d^3 \vec{r} \phi^\ast_i(\vec{r}) \{ -\frac{1}{2}\mathbb{\nabla}^2 + V_{ne}(\vec{r}) \} \phi_i(\vec{r})=2 \sum_i^n h_i
+2 \sum_i^n \int d^3 \vec{r} \phi^\ast_i(\vec{r}) \left( -\frac{1}{2}\mathbb{\nabla}^2 + V_{ne}(\vec{r}) \right) \phi_i(\vec{r})=2 \sum_i^n h_i
 $$  
 
 と、コンパクトに書き直せる。2電子積分については、スピンが異なる組み合わせは全て０になるので、スピンについて考慮する必要が無くなる。つまり、同じものは、$(n-2)!$ 個ある。よって、2電子積分の項は次のように変形できる。  
