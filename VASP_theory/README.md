@@ -161,6 +161,46 @@ $$
 4. スピン量子数 $s$  
    電子の自転の向きを表し、 $s=\pm \frac{1}{2}$ で表される。
 
+### 0.10. 量子力学における変分法
+&emsp;変分法の使い方について、まず、  
+
+$$  
+\int \psi^\ast \hat{H} \psi d\vec{r}
+$$  
+
+が最小となる $\psi$ を見つけたいとき、注意しなければならないのは、  
+
+$$  
+\int \psi^\ast \psi d\vec{r} = 1
+$$  
+
+を満たしていなければならないということである。なので、これは、拘束条件付きの最小化問題と言える。これを、 __Lagrangeの未定係数法__ で解くことにする。Lagrangeの未定係数法では、拘束条件を $g_i(\vec{x})=0$ に未定係数 $\lambda_i$ をかけた項を引いた、  
+
+$$  
+L(\vec{x}, \vec{\lambda}) = f(\vec{x})-\sum_i \lambda_i g_i(\vec{x})
+$$  
+
+という式が用いられ、左辺の関数Lの微分が０になる条件から最小値問題を解くという流れである。さて、波動関数を当てはめると、  
+
+$$  
+L(\psi^\ast, \psi, E) = \int \psi^\ast \hat{H} \psi d\vec{r} - E(\int \psi^\ast \psi d\vec{r} - 1)
+$$  
+
+となる。ここで、 $\psi$ とは独立に $\psi^\ast$ を $\psi^\ast+\delta\psi^\ast$ へ変化させたとき、  
+
+$$  
+L(\psi^\ast+\delta\psi^\ast, \psi, E) -L(\psi^\ast, \psi, E)= \int \delta\psi^\ast (\hat{H}-E) \psi d\vec{r} 
+$$  
+
+と書け、微分が０になるということは、  
+
+$$  
+\int \delta\psi^\ast (\hat{H}-E) \psi d\vec{r} = 0
+$$
+
+実は、Schrödinger方程式と変分法が等価だとわかる。この後に変分法が出てくるが、Schrödinger方程式の形に落とし込めばよいと言える。
+
+
 ## 1. 密度汎関数法
 &emsp;[先](#01-schrödinger方程式)に述べたように、VASPで用いられている第一原理計算の計算手法の一つである。その概要について述べる。  
 　DFT計算では、電子軌道内を運動する電子を、電子の密度分布で表現する。この電子密度と個々の電子間に働く引力・斥力相互作用を考慮することで、系内に存在する全ての電子間の相互作用を評価できるため、各原子・分子の安定構造を計算することが可能である。（[参考](https://rdreview.jaea.go.jp/review_jp/kaisetsu/723.html#:~:text=DFT%E8%A8%88%E7%AE%97%E3%81%A7%E3%81%AF%E3%80%81%E9%9B%BB%E5%AD%90%E8%BB%8C%E9%81%93,%E3%81%93%E3%81%A8%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%A7%E3%81%82%E3%82%8B%E3%80%82)）  
@@ -178,7 +218,7 @@ $$
 　ここで、ハートリーは複数の電子を持つ原子の3体問題を解ける方法を1928年に提案した。それが、__Hartree法__ である。ヘリウム原子のハミルトニアンを考えると、原子核と電子2つの相互作用から、原子核に対する電子の位置ベクトル $\vec{r_1, r_2}$ を用いて、  
 
 $$  
-\hat{H} = -\frac{\nabla ^2_1}{2}-\frac{\nabla ^2_2}{2}+V_{ne}(\vec{r_1})+V_{ne}(\vec{r_2})++V_{ee}(\vec{r_1},\vec{r_2})
+\hat{H} = -\frac{\nabla ^2_1}{2}-\frac{\nabla ^2_2}{2}+V_{ne}(\vec{r_1})+V_{ne}(\vec{r_2})+V_{ee}(\vec{r_1},\vec{r_2})
 $$  
 
 と書ける。先の2項は原子核に対する運動エネルギー演算子、次の2項は原子核ー電子核間の静電相互作用（クーロン）ポテンシャルであり、この2つを合わせて、__１電子演算子__ と呼ぶ。最後の項は、2つの電子間の静電相互作用ポテンシャルであり、__２電子演算子__ と呼ぶ。  
@@ -418,7 +458,11 @@ $$
     \vdots & \vdots & \ddots& \vdots \\
     \phi_N (\vec{r_1}) & \phi_N (\vec{r_2})& \cdots & \phi_N (\vec{r_N}) \\
 \end{vmatrix}
-$$ 
+$$  
+
+$$   
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\frac{1}{\sqrt{N!}}\ det|\phi_1 (\vec{r_1})\phi_2 (\vec{r_2}) \cdots \phi_N (\vec{r_N})|
+$$  
 
 この行列こそが、slaterが1929年に発表した __Slater行列式__ である。
 
@@ -448,10 +492,52 @@ $$
 E = \frac{1}{(2n)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \hat{H}\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
 $$  
 
-と書ける。ここで、1電子積分と2電子積分はそれぞれ、電子の区別がつかないことから、 $2n$ 個、 ${}_{2n} C_2 = n(2n-1)$ 個同じものがある。なので、期待値はつぎのように変形できる。  
+と書ける。ここで、$\hat{H}$ の中身である、[1電子積分と2電子積分](#111-hartree法) はそれぞれ、電子の区別がつかないことから、 $2n$ 個、 ${}_{2n} C_2 = n(2n-1)$ 個同じものがある。なので、期待値はつぎのように変形できる。  
 
 $$  
-E=\frac{1}{(2n-1)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \left( -\frac{\mathbb{\nabla^2}}{2}+V_{ne} \right)\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|+\frac{1}{2(2n-2)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \frac{1}{r_{12}} \ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+E=\frac{1}{(2n-1)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \left( -\frac{\mathbb{\nabla^2}}{2}+V_{ne} \right)\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+$$  
+
+$$  
++\frac{1}{2(2n-2)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \frac{1}{r_{12}} \ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+$$  
+
+ここで、1電子積分については、次の条件がある。  
+
+$$  
+\int d^3 \vec{r_\lambda} d\vec{\sigma} \phi^\ast_k(\vec{r_\lambda}, \sigma)\phi_l(\vec{r_\lambda}, \sigma) = \delta_{kl}
+$$  
+
+$$  
+\int d^3 \vec{r_\lambda} d\vec{\sigma} \phi^\ast_k(\vec{r_\lambda}, \sigma)\phi_l(\vec{r_\lambda}, \sigma'\not ={\sigma}) = 0
+$$ 
+
+したがって、1電子積分については、同じものが $(2n-1)!$ 個出てくることに加え、スピン $\alpha, \beta$ に同じ空間軌道を用いると、  
+
+$$  
+2 \sum_i^n \int d^3 \vec{r} \phi^\ast_i(\vec{r})\left\{ -\frac{1}{2}\mathbb{\nabla}^2 + V_{ne}(\vec{r}) \right\}\phi_i(\vec{r})=2 \sum_i^n h_i
+$$  
+
+と、コンパクトに書き直せる。2電子積分については、スピンが異なる組み合わせは全て０になるので、スピンについて考慮する必要が無くなる。つまり、同じものは、$(n-2)!$ 個ある。よって、2電子積分の項は次のように変形できる。  
+
+$$  
+\sum_{i, j}^n (2J_{i, j}-K_{i, j})
+$$  
+
+なお、  
+
+$$  
+J_{i, j} = \int d^3\vec{r_1}d^3\vec{r_2}\phi^\ast_i(\vec{r_1})\phi^\ast_j(\vec{r_2})\frac{1}{r_{12}}\phi_i(\vec{r_1})\phi_j(\vec{r_2})=\braket{ij|ij}
+$$  
+
+$$  
+K_{i, j} = \int d^3\vec{r_1}d^3\vec{r_2}\phi^\ast_i(\vec{r_1})\phi^\ast_j(\vec{r_2})\frac{1}{r_{12}}\phi_j(\vec{r_1})\phi_i(\vec{r_2})=\braket{ij|ji}
+$$  
+
+である。Hartree法のときと同様、期待値の軌道に対する変分 $\frac{\partial E}{\partial \phi_i}$ が０になる停留条件を課すと、変分法より、  
+
+$$  
+
 $$  
 
 ### 1.2. Kohn-Sham法
