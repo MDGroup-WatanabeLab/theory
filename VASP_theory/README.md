@@ -572,19 +572,19 @@ $$
 \epsilon_i = \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{F} \phi_i(\vec{r_1})
 $$  
 
-$$  
+```math  
 \ \ \ \ \  = h_i+\sum_j^n \left( 2\hat{J}_{ij} -\hat{K}_{ij} \right)
-$$  
+```  
 
 で表される。なので、全電子エネルギーEは、各軌道に電子が2個ずつあることと2電子積分の重複に注意すると、  
 
-$$  
+```math  
 E= 2\sum_i^n \epsilon_i-\sum_{i, j}^n \left( 2\hat{J}_{ij} -\hat{K}_{ij} \right)
-$$  
+```  
 
-$$  
+```math  
 \ \ \ \ = 2\sum_i^n h_i+\sum_{i, j}^n \left( 2\hat{J}_{ij} -\hat{K}_{ij} \right)
-$$  
+```  
 
 $$  
 =\sum_i^n (\epsilon_i + h_i)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
