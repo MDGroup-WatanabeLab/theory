@@ -537,7 +537,7 @@ $$
 である。Hartree法のときと同様、期待値の軌道に対する変分 $\frac{\partial E}{\partial \phi_i}$ が０になる停留条件を課すと、変分法より、  
 
 $$  
-
+\left\{ k \right\}
 $$  
 
 ### 1.2. Kohn-Sham法
