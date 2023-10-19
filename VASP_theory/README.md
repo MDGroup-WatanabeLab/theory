@@ -620,7 +620,69 @@ $$
 \boldsymbol{FC_i} = \epsilon_i \boldsymbol{SC_i}
 $$  
 
+となる。もう少し、行列 $\boldsymbol{F, S}$ の要素を見ていくと、  
 
+$$  
+F_{pq} = \int d^3\boldsymbol{r} \chi_p^\ast(\boldsymbol{r})\hat{F}\chi_q(\boldsymbol{r})
+$$  
+
+$$  
+= \int d^3\boldsymbol{r} \chi_p^\ast(\boldsymbol{r})\hat{h}\chi_q(\boldsymbol{r}) + \int d^3\boldsymbol{r} \chi_p^\ast(\boldsymbol{r})(2\hat{J}_j -\hat{K}_j)\chi_q(\boldsymbol{r})
+$$  
+
+$$  
+=h_{pq}+\sum_{r,s=1}^{n_{basis}} P_{sr}\left( \braket{pr|qs}-\frac{1}{2}\braket{pr|sq} \right)
+$$  
+
+$$  
+S_{pq} = \int d^3\boldsymbol{r}\chi_p^\ast(\boldsymbol{r})\chi_q(\boldsymbol{r})
+$$  
+
+そして、 $h_{pq}, \braket{pr|qs}, \braket{pr|sq}$ は、  
+
+$$  
+h_{pq} =  \int d^3\boldsymbol{r} \chi_p^\ast(\boldsymbol{r})\left( -\frac{1}{2}\boldsymbol{\nabla_r^2}+V_{ne}(\boldsymbol{r}) \right)\chi_q(\boldsymbol{r})
+$$  
+
+$$  
+\braket{pr|qs} = \int d^3\boldsymbol{r_1}d^3\boldsymbol{r_2}\chi_p^\ast(\boldsymbol{r_1})\chi_r^\ast(\boldsymbol{r_2})\frac{1}{r_{12}}\chi_q(\boldsymbol{r_1})\chi_s(\boldsymbol{r_2})
+$$  
+
+$$  
+\braket{pr|sq} = \int d^3\boldsymbol{r_1}d^3\boldsymbol{r_2}\chi_p^\ast(\boldsymbol{r_1})\chi_r^\ast(\boldsymbol{r_2})\frac{1}{r_{12}}\chi_s(\boldsymbol{r_1})\chi_q(\boldsymbol{r_2})
+$$  
+
+そして、次のように定義される行列を __密度行列__ と呼ぶ。  
+
+$$  
+P_{pq} = 2 \sum_{j=1}^n C_{pj}C_{qj}^\ast
+$$  
+
+この行列は、von NeumannとLamdauが1927年により提案された行列で、統計的な系の量子力学記述のために用いられ、対角項はそれぞれの分子軌道における1電子の存在確率を表している。  
+　さて、行列方程式になったHartree-Fock方程式が、自明でない解を持つなら、  
+
+$$  
+|\boldsymbol{F}-\epsilon_i\boldsymbol{S}|=0
+$$  
+
+が成り立つ。この式を解くため、SCF法が用いられる。流れとしては、
+
+   1. 分子の情報と規格直交化された基底関数系を設定する
+   2. 1電子積分 $h_{pq}$ と2電子積分 $\braket{pr|qs}, \braket{pr|sq}$ を計算する
+   3. 初期分子軌道係数 $\{ \boldsymbol{C_i} \}$ により密度行列 $\boldsymbol{P}$ を計算
+   4. Fock行列を計算する
+   5. Fock行列を対角化し、分子軌道係数と軌道エネルギーを求める
+   6. 新たな分子軌道係数で新たな密度行列 $\boldsymbol{P_i'}$ を計算
+   7.  $\boldsymbol{P_i'}$ と $\boldsymbol{P_i}$ の差を導き、自分が定めた閾値より小さければ、計算終了。閾値より大きければ、4に戻り計算続行
+
+この流れは、分子軌道をユニタリ変換して全電子エネルギーを下げているため、Roothaan法におけるSCF計算は分子軌道を緩和させるプロセスとみなせる。  
+　密度行列とFock行列、1電子積分を組み合わせると、全エネルギーは  
+
+$$  
+E=\frac{1}{2}\sum_{p,r=1}^{n_{basis}}P_{pq}\left( h_{pq}+F_{pq} \right)
+$$  
+
+と表される。
 
 ### 1.2. Kohn-Sham法
 &emsp;では、次に、Kohn-Sham法について解説する。
