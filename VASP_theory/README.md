@@ -17,17 +17,17 @@
 　1926年にErwin R.J.A. Schrödinger が発表した式である。単一粒子かつ定常状態の場合は、  
 
 $$
-\hat{H}\psi (\vec{r}) = E\psi (\vec{r})
+\hat{H}\psi (\boldsymbol{r}) = E\psi (\boldsymbol{r})
 $$  
 
 $$
-\hat{H} = -\frac{\hbar^2}{2m} \nabla^2 + V(\vec{r})
+\hat{H} = -\frac{\hbar^2}{2m} \nabla^2 + V(\boldsymbol{r})
 $$  
 
 量子力学A・Bで学習済みではあるが、簡単に復習する。例として、水素原子を考える。なお、原子系は[Hartree原子単位系](#03-hartree原子単位系)を使用する。  
 
 $$
--\frac{1}{2} \nabla^2 \psi(\vec{r}) - \frac{1}{r}\psi(\vec{r}) = E\psi(\vec{r}) 
+-\frac{1}{2} \nabla^2 \psi(\boldsymbol{r}) - \frac{1}{r}\psi(\boldsymbol{r}) = E\psi(\boldsymbol{r}) 
 $$  
 
 $$
@@ -39,7 +39,7 @@ $$
 　まず、方程式は、電子が２つ存在するので  
 
 $$
-[-\frac{1}{2} \nabla^2_1 - -\frac{1}{2} \nabla^2_2 -\frac{2}{r_1} - \frac{2}{r_2} + \frac{1}{|\vec{r_1}-\vec{r_2}|}] \psi(\vec{r_1}, \vec{r_2}) = E \psi(\vec{r_1}, \vec{r_2})
+[-\frac{1}{2} \nabla^2_1 - -\frac{1}{2} \nabla^2_2 -\frac{2}{r_1} - \frac{2}{r_2} + \frac{1}{|\boldsymbol{r_1}-\boldsymbol{r_2}|}] \psi(\boldsymbol{r_1}, \boldsymbol{r_2}) = E \psi(\boldsymbol{r_1}, \boldsymbol{r_2})
 $$  
 
 となる。第一項と第二項は運動エネルギー、第三項と第四項はCoulombポテンシャルエネルギー、第五項は２つの電子間のCoulombポテンシャルエネルギーである。なお、電子のスピンは考慮していない。  
@@ -49,11 +49,11 @@ $$
 　1928年にPaul A.M. Diracが発表した、Fermi粒子に対する相対論的量子力学の基礎方程式で、原子番号が大きい原子に用いられる。定常状態では、  
 
 $$
-\hat{H}\psi (\vec{r}) = E\psi (\vec{r})
+\hat{H}\psi (\boldsymbol{r}) = E\psi (\boldsymbol{r})
 $$  
 
 $$
-\hat{H} = c\vec{\alpha} \cdot {\hat{p}} + \beta mc^2 + V(\vec{r})
+\hat{H} = c\boldsymbol{\alpha} \cdot {\hat{p}} + \beta mc^2 + V(\boldsymbol{r})
 $$  
 
 見てわかる通り、４成分の方程式のため、実際に解く際は近似を用いて2成分などにして解く。
@@ -165,37 +165,37 @@ $$
 &emsp;変分法の使い方について、まず、  
 
 $$  
-\int \psi^\ast \hat{H} \psi d\vec{r}
+\int \psi^\ast \hat{H} \psi d\boldsymbol{r}
 $$  
 
 が最小となる $\psi$ を見つけたいとき、注意しなければならないのは、  
 
 $$  
-\int \psi^\ast \psi d\vec{r} = 1
+\int \psi^\ast \psi d\boldsymbol{r} = 1
 $$  
 
-を満たしていなければならないということである。なので、これは、拘束条件付きの最小化問題と言える。これを、 __Lagrangeの未定係数法__ で解くことにする。Lagrangeの未定係数法では、拘束条件を $g_i(\vec{x})=0$ に未定係数 $\lambda_i$ をかけた項を引いた、  
+を満たしていなければならないということである。なので、これは、拘束条件付きの最小化問題と言える。これを、 __Lagrangeの未定係数法__ で解くことにする。Lagrangeの未定係数法では、拘束条件を $g_i(\boldsymbol{x})=0$ に未定係数 $\lambda_i$ をかけた項を引いた、  
 
 $$  
-L(\vec{x}, \vec{\lambda}) = f(\vec{x})-\sum_i \lambda_i g_i(\vec{x})
+L(\boldsymbol{x}, \boldsymbol{\lambda}) = f(\boldsymbol{x})-\sum_i \lambda_i g_i(\boldsymbol{x})
 $$  
 
 という式が用いられ、左辺の関数Lの微分が０になる条件から最小値問題を解くという流れである。さて、波動関数を当てはめると、  
 
 $$  
-L(\psi^\ast, \psi, E) = \int \psi^\ast \hat{H} \psi d\vec{r} - E(\int \psi^\ast \psi d\vec{r} - 1)
+L(\psi^\ast, \psi, E) = \int \psi^\ast \hat{H} \psi d\boldsymbol{r} - E(\int \psi^\ast \psi d\boldsymbol{r} - 1)
 $$  
 
 となる。ここで、 $\psi$ とは独立に $\psi^\ast$ を $\psi^\ast+\delta\psi^\ast$ へ変化させたとき、  
 
 $$  
-L(\psi^\ast+\delta\psi^\ast, \psi, E) -L(\psi^\ast, \psi, E)= \int \delta\psi^\ast (\hat{H}-E) \psi d\vec{r} 
+L(\psi^\ast+\delta\psi^\ast, \psi, E) -L(\psi^\ast, \psi, E)= \int \delta\psi^\ast (\hat{H}-E) \psi d\boldsymbol{r} 
 $$  
 
 と書け、微分が０になるということは、  
 
 $$  
-\int \delta\psi^\ast (\hat{H}-E) \psi d\vec{r} = 0
+\int \delta\psi^\ast (\hat{H}-E) \psi d\boldsymbol{r} = 0
 $$
 
 実は、Schrödinger方程式と変分法が等価だとわかる。この後に変分法が出てくるが、Schrödinger方程式の形に落とし込めばよいと言える。
@@ -208,58 +208,58 @@ $$
 
 <br/>
 
-&emsp;そもそも、電子の存在確率は、[Bornの確率解釈](#05-bornの確率解釈)より、3次元波動関数 $\psi( r_1, r_2, r_3, \cdot \cdot \cdot , r_N )$ ではなく、その絶対値2乗である電子密度 $|\psi( r_1, r_2, r_3, \cdot \cdot \cdot , r_N )|^2=\rho(\vec{r})$ から計算される。密度汎関数法はこの $\rho(\vec{r})$ を用いて何か求めることは出来ないか？という考えから生まれたとされる。
+&emsp;そもそも、電子の存在確率は、[Bornの確率解釈](#05-bornの確率解釈)より、3次元波動関数 $\psi( r_1, r_2, r_3, \cdot \cdot \cdot , r_N )$ ではなく、その絶対値2乗である電子密度 $|\psi( r_1, r_2, r_3, \cdot \cdot \cdot , r_N )|^2=\rho(\boldsymbol{r})$ から計算される。密度汎関数法はこの $\rho(\boldsymbol{r})$ を用いて何か求めることは出来ないか？という考えから生まれたとされる。
 <br/>
 　密度汎関数法には、Hartree-Fock法とKohn-Sham法の二つがあるので、順に紹介していく。なお、計算班が第一原理計算用ソフトウェアとして用いている[VASP](https://www.vasp.at/wiki/index.php/The_VASP_Manual)では、Kohn-Sham法を用いているようである。
 
 ### 1.1. Hartree-Fock法
 ### 1.1.1. Hartree法
 &emsp;では、Hartree-Fock法について解説する。まず、前提として、電子の運動を考えるとしたら、ハミルトニアン演算子を設定し、Schrödinger方程式を解けばいい。しかし、ここで、解析力学や量子力学で問題になる、__3体問題__ が発生する。簡単に言うと、3体以上の物体が相互作用する系の運動を解析的に求めることは出来ないということである。 このことは、__ポアンカレの非可積分性の定理__ により示されている。  
-　ここで、ハートリーは複数の電子を持つ原子の3体問題を解ける方法を1928年に提案した。それが、__Hartree法__ である。ヘリウム原子のハミルトニアンを考えると、原子核と電子2つの相互作用から、原子核に対する電子の位置ベクトル $\vec{r_1, r_2}$ を用いて、  
+　ここで、ハートリーは複数の電子を持つ原子の3体問題を解ける方法を1928年に提案した。それが、__Hartree法__ である。ヘリウム原子のハミルトニアンを考えると、原子核と電子2つの相互作用から、原子核に対する電子の位置ベクトル $\boldsymbol{r_1, r_2}$ を用いて、  
 
 $$  
-\hat{H} = -\frac{\nabla ^2_1}{2}-\frac{\nabla ^2_2}{2}+V_{ne}(\vec{r_1})+V_{ne}(\vec{r_2})+V_{ee}(\vec{r_1},\vec{r_2})
+\hat{H} = -\frac{\nabla ^2_1}{2}-\frac{\nabla ^2_2}{2}+V_{ne}(\boldsymbol{r_1})+V_{ne}(\boldsymbol{r_2})+V_{ee}(\boldsymbol{r_1},\boldsymbol{r_2})
 $$  
 
 と書ける。先の2項は原子核に対する運動エネルギー演算子、次の2項は原子核ー電子核間の静電相互作用（クーロン）ポテンシャルであり、この2つを合わせて、__１電子演算子__ と呼ぶ。最後の項は、2つの電子間の静電相互作用ポテンシャルであり、__２電子演算子__ と呼ぶ。  
 　この式では、[Hartree原子単位系](#03-hartree原子単位系)を用いている。したがって、  
 
 $$  
-V_{ne}(\vec{r}) = -\frac{2}{r}=-\frac{2}{|\vec{r}|}
+V_{ne}(\boldsymbol{r}) = -\frac{2}{r}=-\frac{2}{|\boldsymbol{r}|}
 $$  
 
 $$  
-V_{ee}(\vec{r_{12}}) = \frac{1}{r_{12}}=-\frac{1}{|\vec{r_2}-\vec{r_1}|}
+V_{ee}(\boldsymbol{r_{12}}) = \frac{1}{r_{12}}=-\frac{1}{|\boldsymbol{r_2}-\boldsymbol{r_1}|}
 $$  
 
 と書くことができる。何が言いたいかというと、Hartreeはそれぞれの電子が周りの電子の静電ポテンシャルの平均の中を運動すると仮定することで電子の運動を近似したということである。このポテンシャルの平均は有効ポテンシャル $V_{eff}$ と呼ばれ、この近似は __独立電子近似法__ と呼ばれる。これにより、ハミルトニアンは、  
 
 $$  
-\hat{H} = \left[-\frac{\vec{\nabla ^2_1}}{2}+V_{ne}(\vec{r_1})+V_{eff}(\vec{r_1})\right]+\left[-\frac{\vec{\nabla ^2_2}}{2}+V_{ne}(\vec{r_2})+V_{ee}(\vec{r_1, r_2})+V_{eff}(\vec{r_2})\right]
+\hat{H} = \left[-\frac{\boldsymbol{\nabla ^2_1}}{2}+V_{ne}(\boldsymbol{r_1})+V_{eff}(\boldsymbol{r_1})\right]+\left[-\frac{\boldsymbol{\nabla ^2_2}}{2}+V_{ne}(\boldsymbol{r_2})+V_{ee}(\boldsymbol{r_1, r_2})+V_{eff}(\boldsymbol{r_2})\right]
 $$  
 
 と書き直せる。したがって、まとめると、  
 
 $$  
-\hat{H} = \hat{h}(\vec{r_1})+\hat{h}(\vec{r_2})
+\hat{H} = \hat{h}(\boldsymbol{r_1})+\hat{h}(\boldsymbol{r_2})
 $$  
 
 当然、電子数がn個なら、この $\hat{h}$ もn個の和になることは想像に容易いだろう。さて、波動関数については、2つの電子の波動関数の積として、  
 
 $$  
-\psi(\vec{r_1}, \vec{r_2}) = \phi_1(\vec{r_1}) \phi_2(\vec{r_2})
+\psi(\boldsymbol{r_1}, \boldsymbol{r_2}) = \phi_1(\boldsymbol{r_1}) \phi_2(\boldsymbol{r_2})
 $$  
 
 と書くことができる。このときのハミルトニアン演算子の期待値 $E$ は、  
 
 $$
-E = \frac{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^\ast(\vec{r_1}, \vec{r_2}) \hat{H} \psi(\vec{r_1}, \vec{r_2})}{\int d^3 \vec{r_1} d^3 \vec{r_2} \psi^\ast(\vec{r_1}, \vec{r_2}) \psi(\vec{r_1}, \vec{r_2})}
+E = \frac{\int d^3 \boldsymbol{r_1} d^3 \boldsymbol{r_2} \psi^\ast(\boldsymbol{r_1}, \boldsymbol{r_2}) \hat{H} \psi(\boldsymbol{r_1}, \boldsymbol{r_2})}{\int d^3 \boldsymbol{r_1} d^3 \boldsymbol{r_2} \psi^\ast(\boldsymbol{r_1}, \boldsymbol{r_2}) \psi(\boldsymbol{r_1}, \boldsymbol{r_2})}
 $$
 
 また、
 
 $$
-E= \frac{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
+E= \frac{ \Sigma_{i=1}^2 \int d^3 \boldsymbol{r_i} \phi_i^\ast(\boldsymbol{r_i}) \hat{h} \phi(\boldsymbol{r_i})}{ \Sigma_{i=1}^2 \int d^3 \boldsymbol{r_i} \phi_i^\ast(\boldsymbol{r_i}) \phi_i(\boldsymbol{r_i})}
 $$
 
 
@@ -267,10 +267,10 @@ $$
 軌道の組 { $\phi_i$ } に対する変分法より、この期待値を停留にする1電子波動関数の組 { $\phi_i$ } を求めるSchrödinger方程式は、  
 
 $$  
-\hat{h}(\vec{r_i}) \phi(\vec{r_i}) = \epsilon_i \phi(\vec{r_i})
+\hat{h}(\boldsymbol{r_i}) \phi(\boldsymbol{r_i}) = \epsilon_i \phi(\boldsymbol{r_i})
 $$  
 
-と書ける。 $\phi(\vec{r_i})$ は軌道、 $\epsilon_i$ は軌道エネルギーと呼ばれる。ハミルトニアン演算子 $\hat{H}$ は$i$番目の電子のハミルトニアン演算子 $\hat{h}(\vec{r_i})$ の和で表されることから、  
+と書ける。 $\phi(\boldsymbol{r_i})$ は軌道、 $\epsilon_i$ は軌道エネルギーと呼ばれる。ハミルトニアン演算子 $\hat{H}$ は$i$番目の電子のハミルトニアン演算子 $\hat{h}(\boldsymbol{r_i})$ の和で表されることから、  
 
 $$  
 \hat{H} \psi =(\epsilon_1+\epsilon_2)\phi_1\phi_2 = \epsilon \psi
@@ -280,7 +280,7 @@ $$
 　ここで、有効ポテンシャルは次のように表されることがある。  
 
 $$  
-V_{eff}(\vec{r_i}) = \sum_j \int d^3\vec{r_j} \frac{|\phi_j(\vec{r_j})|^2}{|\vec{r_i}-\vec{r_j}|} 
+V_{eff}(\boldsymbol{r_i}) = \sum_j \int d^3\boldsymbol{r_j} \frac{|\phi_j(\boldsymbol{r_j})|^2}{|\boldsymbol{r_i}-\boldsymbol{r_j}|} 
 $$  
 
 この説明だけ聞くと、人によっては、「なんだ、これだけか？」と思うかもしれない。実際、電子の軌道については最新の理論と比較しても大差ない再現ができた。しかし、このHartree法で導かれたエネルギーは到底使える値では無かった。それは、電子の交換を考慮していないためであった。エネルギーの重要性は言わずもがな、一番大事であるのでこのままではいけない。
@@ -289,13 +289,13 @@ $$
 &emsp;ココで一度、電子の運動について考えてみたい。水素分子 $H_2$ を考えると、ハミルトニアン演算子は、  
 
 $$  
-\hat{H} = \hat{h}(\vec{r_1})+\hat{h}\vec{r_2}+V_{nn}(R_{AB})
+\hat{H} = \hat{h}(\boldsymbol{r_1})+\hat{h}\boldsymbol{r_2}+V_{nn}(R_{AB})
 $$  
 
 $R_{AB}$ は2つの原子核間距離を表し、最後の項は原子核間の相互作用を表す。ここで、[Born-Oppenheimer近似](#04-born-oppenheimer近似)より、  
 
 $$  
-\hat{H} = \hat{h}(\vec{r_1})+\hat{h}\vec{r_2}
+\hat{H} = \hat{h}(\boldsymbol{r_1})+\hat{h}\boldsymbol{r_2}
 $$  
 
 ちなみに、[前の節](#111-hartree法)に出てきたヘリウム原子と比べると、水素分子は原子核が2つあるので、電子の位置ベクトルもより複雑になる。つまり、より複雑なハミルトニアンになっていることは忘れてはいけない。  
@@ -309,7 +309,7 @@ $$
 $C$ は分子軌道係数、 $\chi$ は原子軌道を表す。ハミルトニアン演算子の期待値 $E$ は、  
 
 $$
-E= \frac{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
+E= \frac{ \Sigma_{i=1}^2 \int d^3 \boldsymbol{r_i} \phi_i^\ast(\boldsymbol{r_i}) \hat{h} \phi(\boldsymbol{r_i})}{ \Sigma_{i=1}^2 \int d^3 \boldsymbol{r_i} \phi_i^\ast(\boldsymbol{r_i}) \phi_i(\boldsymbol{r_i})}
 $$
 
 を用いて、
@@ -321,11 +321,11 @@ $$
 となる。ここで、  
 
 $$  
-h_{ij} = \int d^3 \vec{r} \chi_i \hat{h} \chi_j <  0
+h_{ij} = \int d^3 \boldsymbol{r} \chi_i \hat{h} \chi_j <  0
 $$  
 
 $$  
-S_{12} = \int d^3 \vec{r} \chi_1 \chi_2 > 0
+S_{12} = \int d^3 \boldsymbol{r} \chi_1 \chi_2 > 0
 $$  
 
 となっている。 $\epsilon$ は分子軌道の軌道エネルギーであり、このエネルギーを最小にするような係数 $C_1, C_2$ を考えると、  
@@ -369,11 +369,11 @@ $$
 となる。ここで、__Pauliの排他律__ を思い出してほしい。４つの[量子数](#09-量子数)がすべて同じ電子は存在しないとされる。したがって、水素分子の場合、 $\phi_+$ 軌道はスピンが異なる二つの電子に占有される。つまり、水素分子の波動関数は、  
 
 $$  
-\Phi = \phi_+(\vec{r_1})\phi_+(\vec{r_2})
+\Phi = \phi_+(\boldsymbol{r_1})\phi_+(\boldsymbol{r_2})
 $$  
 
 $$  
-\Phi = \frac{1}{2+2S_{12}} \{ \chi_1(\vec{r_1})+ \chi_2(\vec{r_1}) \} \{ \chi_1(\vec{r_2})+ \chi_2(\vec{r_2}) \}
+\Phi = \frac{1}{2+2S_{12}} \{ \chi_1(\boldsymbol{r_1})+ \chi_2(\boldsymbol{r_1}) \} \{ \chi_1(\boldsymbol{r_2})+ \chi_2(\boldsymbol{r_2}) \}
 $$  
 
 と書き表される。したがって、水素分子の全エネルギーは、スピンの向きがエネルギーの大きさに影響を及ぼさないので、  
@@ -389,19 +389,19 @@ $$
 　では、ヘリウムを例に、電子の交換とはどういうものか見ていこう。交換しても変わらないということは、ハミルトニアンは、
 
 $$  
-\hat{H}(\vec{r_1}, \vec{r_2})= \hat{H}(\vec{r_2}, \vec{r_1}) = -\frac{\nabla ^2_1}{2}-\frac{\nabla ^2_2}{2}+V_{ne}(\vec{r_1})+V_{ne}(\vec{r_2})++V_{ee}(\vec{r_1},\vec{r_2})
+\hat{H}(\boldsymbol{r_1}, \boldsymbol{r_2})= \hat{H}(\boldsymbol{r_2}, \boldsymbol{r_1}) = -\frac{\nabla ^2_1}{2}-\frac{\nabla ^2_2}{2}+V_{ne}(\boldsymbol{r_1})+V_{ne}(\boldsymbol{r_2})++V_{ee}(\boldsymbol{r_1},\boldsymbol{r_2})
 $$ 
 
 となる。ということは、  
 
 $$  
-\hat{H}(\vec{r_1}, \vec{r_2}) \Psi(\vec{r_2}, \vec{r_1}) = E\Psi(\vec{r_2}, \vec{r_1})
+\hat{H}(\boldsymbol{r_1}, \boldsymbol{r_2}) \Psi(\boldsymbol{r_2}, \boldsymbol{r_1}) = E\Psi(\boldsymbol{r_2}, \boldsymbol{r_1})
 $$  
 
 2電子を入れ替える交換演算子 $\hat{P}_{12}$ について、  
 
 ```math
-\hat{H}(\vec{r_1}, \vec{r_2}) \hat{P}_{12} \Psi(\vec{r_1}, \vec{r_2}) = \hat{P}_{12} \hat{H}(\vec{r_1}, \vec{r_2}) \Psi(\vec{r_1}, \vec{r_2})
+\hat{H}(\boldsymbol{r_1}, \boldsymbol{r_2}) \hat{P}_{12} \Psi(\boldsymbol{r_1}, \boldsymbol{r_2}) = \hat{P}_{12} \hat{H}(\boldsymbol{r_1}, \boldsymbol{r_2}) \Psi(\boldsymbol{r_1}, \boldsymbol{r_2})
 ```
 
 つまり、  
@@ -419,49 +419,49 @@ $$
 なので、交換演算子の固有値が $\pm 1$ である波動関数をそれぞれ対称波動関数と反対称波動関数とすると、規格化した場合、次のように表せる。  
 
 $$  
-\Psi^{(S)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\Psi(\vec{r_1}, \vec{r_2})+\Psi(\vec{r_2}, \vec{r_1}) \}=\Psi^{(S)}(\vec{r_2}, \vec{r_1})
+\Psi^{(S)}(\boldsymbol{r_1}, \boldsymbol{r_2}) = \frac{1}{\sqrt{2}} \{\Psi(\boldsymbol{r_1}, \boldsymbol{r_2})+\Psi(\boldsymbol{r_2}, \boldsymbol{r_1}) \}=\Psi^{(S)}(\boldsymbol{r_2}, \boldsymbol{r_1})
 $$  
 
 
 $$  
-\Psi^{(A)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\Psi(\vec{r_1}, \vec{r_2})-\Psi(\vec{r_2}, \vec{r_1}) \} = -\Psi^{(A)}(\vec{r_2}, \vec{r_1})
+\Psi^{(A)}(\boldsymbol{r_1}, \boldsymbol{r_2}) = \frac{1}{\sqrt{2}} \{\Psi(\boldsymbol{r_1}, \boldsymbol{r_2})-\Psi(\boldsymbol{r_2}, \boldsymbol{r_1}) \} = -\Psi^{(A)}(\boldsymbol{r_2}, \boldsymbol{r_1})
 $$  
 
 さらに、Hartree波動関数についても考えると、
 
 $$  
-\Psi^{(S)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\phi_1 (\vec{r_1})\phi_2 (\vec{r_2})+\phi_1(\vec{r_2})\phi_2 (\vec{r_1}) \}
+\Psi^{(S)}(\boldsymbol{r_1}, \boldsymbol{r_2}) = \frac{1}{\sqrt{2}} \{\phi_1 (\boldsymbol{r_1})\phi_2 (\boldsymbol{r_2})+\phi_1(\boldsymbol{r_2})\phi_2 (\boldsymbol{r_1}) \}
 $$  
 
 
 $$  
-\Psi^{(A)}(\vec{r_1}, \vec{r_2}) = \frac{1}{\sqrt{2}} \{\phi_1 (\vec{r_1})\phi_2 (\vec{r_2})-\phi_1(\vec{r_2})\phi_2 (\vec{r_1}) \}
+\Psi^{(A)}(\boldsymbol{r_1}, \boldsymbol{r_2}) = \frac{1}{\sqrt{2}} \{\phi_1 (\boldsymbol{r_1})\phi_2 (\boldsymbol{r_2})-\phi_1(\boldsymbol{r_2})\phi_2 (\boldsymbol{r_1}) \}
 $$ 
 
 ここで、気を付けるべきなのは、__Pauliの排他律を満たしているのは、反対称波動関数だけ__ という点である。すなわち、__電子は反対称波動関数を持つ__ ことがわかる。反対称波動関数を行列式で書くと、
 
 $$  
-\Psi(\vec{r_1}, \vec{r_2})=\frac{1}{\sqrt{2}}
+\Psi(\boldsymbol{r_1}, \boldsymbol{r_2})=\frac{1}{\sqrt{2}}
 \begin{vmatrix}
-    \phi_1 (\vec{r_1}) & \phi_1(\vec{r_2}) \\
-    \phi_2 (\vec{r_1}) & \phi_2 (\vec{r_2}) \\
+    \phi_1 (\boldsymbol{r_1}) & \phi_1(\boldsymbol{r_2}) \\
+    \phi_2 (\boldsymbol{r_1}) & \phi_2 (\boldsymbol{r_2}) \\
 \end{vmatrix}
 $$ 
 
 3個以上電子があるときでもどうように行列式で書ける。一般化すると、
 
 $$  
-\Psi(\vec{r_1}, \vec{r_2}, \cdots, \vec{r_N})=\frac{1}{\sqrt{N!}}
+\Psi(\boldsymbol{r_1}, \boldsymbol{r_2}, \cdots, \boldsymbol{r_N})=\frac{1}{\sqrt{N!}}
 \begin{vmatrix}
-    \phi_1 (\vec{r_1}) & \phi_1(\vec{r_2}) & \cdots & \phi_1 (\vec{r_N}) \\
-    \phi_2 (\vec{r_1}) & \phi_2 (\vec{r_2})& \cdots & \phi_2 (\vec{r_N}) \\
+    \phi_1 (\boldsymbol{r_1}) & \phi_1(\boldsymbol{r_2}) & \cdots & \phi_1 (\boldsymbol{r_N}) \\
+    \phi_2 (\boldsymbol{r_1}) & \phi_2 (\boldsymbol{r_2})& \cdots & \phi_2 (\boldsymbol{r_N}) \\
     \vdots & \vdots & \ddots& \vdots \\
-    \phi_N (\vec{r_1}) & \phi_N (\vec{r_2})& \cdots & \phi_N (\vec{r_N}) \\
+    \phi_N (\boldsymbol{r_1}) & \phi_N (\boldsymbol{r_2})& \cdots & \phi_N (\boldsymbol{r_N}) \\
 \end{vmatrix}
 $$  
 
 $$   
-\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\frac{1}{\sqrt{N!}}\ det|\phi_1 (\vec{r_1})\phi_2 (\vec{r_2}) \cdots \phi_N (\vec{r_N})|
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\frac{1}{\sqrt{N!}}\ det|\phi_1 (\boldsymbol{r_1})\phi_2 (\boldsymbol{r_2}) \cdots \phi_N (\boldsymbol{r_N})|
 $$  
 
 この行列こそが、slaterが1929年に発表した __Slater行列式__ である。
@@ -471,51 +471,51 @@ $$
 　まずは、n個の軌道に電子が２つずつ占有していく系を考える。このときのSlater行列式は、  
 
 $$  
-\Phi(\{\vec{r}, \vec{\sigma}\})=\frac{1}{\sqrt{(2n)!}} det|\phi_1(\vec{r_1}, \alpha)\phi_1(\vec{r_2}, \beta)\cdots \phi_n(\vec{r_{2n-1}}, \alpha)\phi_n(\vec{r_{2n-1}}, \beta)|
+\Phi(\{\boldsymbol{r}, \boldsymbol{\sigma}\})=\frac{1}{\sqrt{(2n)!}} det|\phi_1(\boldsymbol{r_1}, \alpha)\phi_1(\boldsymbol{r_2}, \beta)\cdots \phi_n(\boldsymbol{r_{2n-1}}, \alpha)\phi_n(\boldsymbol{r_{2n-1}}, \beta)|
 $$  
 
 なお、
 
 $$  
-\{\vec{r}, \vec{\sigma}\} = \{ \vec{r_1}\vec{\sigma_1}\cdots \vec{r_{2n}}\vec{\sigma_{2n}}\}
+\{\boldsymbol{r}, \boldsymbol{\sigma}\} = \{ \boldsymbol{r_1}\boldsymbol{\sigma_1}\cdots \boldsymbol{r_{2n}}\boldsymbol{\sigma_{2n}}\}
 $$  
 
 である。期待値 $E$ を求めると、
 
 $$
-E= \frac{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \hat{h} \phi(\vec{r_i})}{ \Sigma_{i=1}^2 \int d^3 \vec{r_i} \phi_i^\ast(\vec{r_i}) \phi_i(\vec{r_i})}
+E= \frac{ \Sigma_{i=1}^2 \int d^3 \boldsymbol{r_i} \phi_i^\ast(\boldsymbol{r_i}) \hat{h} \phi(\boldsymbol{r_i})}{ \Sigma_{i=1}^2 \int d^3 \boldsymbol{r_i} \phi_i^\ast(\boldsymbol{r_i}) \phi_i(\boldsymbol{r_i})}
 $$
 
 を用いて、  
 
 $$  
-E = \frac{1}{(2n)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \hat{H}\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+E = \frac{1}{(2n)!} \int d^3\{\boldsymbol{r}\} d\{\boldsymbol{\sigma}\}\ det|\phi_1^\ast(\boldsymbol{r_1}, \alpha)\cdots\phi_n^\ast(\boldsymbol{r_{2n-1}}, \beta)|\ \hat{H}\ det|\phi_1(\boldsymbol{r_1}, \alpha)\cdots\phi_n(\boldsymbol{r_{2n-1}}, \beta)|
 $$  
 
 と書ける。ここで、$\hat{H}$ の中身である、[1電子積分と2電子積分](#111-hartree法) はそれぞれ、電子の区別がつかないことから、 $2n$ 個、 ${}_{2n} C_2 = n(2n-1)$ 個同じものがある。なので、期待値はつぎのように変形できる。  
 
 $$  
-E=\frac{1}{(2n-1)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \left( -\frac{\mathbb{\nabla^2}}{2}+V_{ne} \right)\ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
+E=\frac{1}{(2n-1)!} \int d^3\{\boldsymbol{r}\} d\{\boldsymbol{\sigma}\}\ det|\phi_1^\ast(\boldsymbol{r_1}, \alpha)\cdots\phi_n^\ast(\boldsymbol{r_{2n-1}}, \beta)|\ \left( -\frac{\mathbb{\nabla^2}}{2}+V_{ne} \right)\ det|\phi_1(\boldsymbol{r_1}, \alpha)\cdots\phi_n(\boldsymbol{r_{2n-1}}, \beta)|
 $$  
 
 $$  
-+\frac{1}{2(2n-2)!} \int d^3\{\vec{r}\} d\{\vec{\sigma}\}\ det|\phi_1^\ast(\vec{r_1}, \alpha)\cdots\phi_n^\ast(\vec{r_{2n-1}}, \beta)|\ \frac{1}{r_{12}} \ det|\phi_1(\vec{r_1}, \alpha)\cdots\phi_n(\vec{r_{2n-1}}, \beta)|
++\frac{1}{2(2n-2)!} \int d^3\{\boldsymbol{r}\} d\{\boldsymbol{\sigma}\}\ det|\phi_1^\ast(\boldsymbol{r_1}, \alpha)\cdots\phi_n^\ast(\boldsymbol{r_{2n-1}}, \beta)|\ \frac{1}{r_{12}} \ det|\phi_1(\boldsymbol{r_1}, \alpha)\cdots\phi_n(\boldsymbol{r_{2n-1}}, \beta)|
 $$  
 
 ここで、1電子積分については、次の条件がある。  
 
 $$  
-\int d^3 \vec{r_\lambda} d\vec{\sigma} \phi^\ast_k(\vec{r_\lambda}, \sigma)\phi_l(\vec{r_\lambda}, \sigma) = \delta_{kl}
+\int d^3 \boldsymbol{r_\lambda} d\boldsymbol{\sigma} \phi^\ast_k(\boldsymbol{r_\lambda}, \sigma)\phi_l(\boldsymbol{r_\lambda}, \sigma) = \delta_{kl}
 $$  
 
 $$  
-\int d^3 \vec{r_\lambda} d\vec{\sigma} \phi^\ast_k(\vec{r_\lambda}, \sigma)\phi_l(\vec{r_\lambda}, \sigma'\not ={\sigma}) = 0
+\int d^3 \boldsymbol{r_\lambda} d\boldsymbol{\sigma} \phi^\ast_k(\boldsymbol{r_\lambda}, \sigma)\phi_l(\boldsymbol{r_\lambda}, \sigma'\not ={\sigma}) = 0
 $$ 
 
 したがって、1電子積分については、同じものが $(2n-1)!$ 個出てくることに加え、スピン $\alpha, \beta$ に同じ空間軌道を用いると、  
 
 $$  
-2 \sum_i^n \int d^3 \vec{r} \phi^\ast_i(\vec{r}) \left( -\frac{1}{2}\mathbb{\nabla}^2 + V_{ne}(\vec{r}) \right) \phi_i(\vec{r})=2 \sum_i^n h_i
+2 \sum_i^n \int d^3 \boldsymbol{r} \phi^\ast_i(\boldsymbol{r}) \left( -\frac{1}{2}\mathbb{\nabla}^2 + V_{ne}(\boldsymbol{r}) \right) \phi_i(\boldsymbol{r})=2 \sum_i^n h_i
 $$  
 
 と、コンパクトに書き直せる。2電子積分については、スピンが異なる組み合わせは全て０になるので、スピンについて考慮する必要が無くなる。つまり、同じものは、$(n-2)!$ 個ある。よって、2電子積分の項は次のように変形できる。  
@@ -527,11 +527,11 @@ $$
 なお、  
 
 $$  
-J_{i, j} = \int d^3\vec{r_1}d^3\vec{r_2}\phi^\ast_i(\vec{r_1})\phi^\ast_j(\vec{r_2})\frac{1}{r_{12}}\phi_i(\vec{r_1})\phi_j(\vec{r_2})=\braket{ij|ij}
+J_{i, j} = \int d^3\boldsymbol{r_1}d^3\boldsymbol{r_2}\phi^\ast_i(\boldsymbol{r_1})\phi^\ast_j(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_i(\boldsymbol{r_1})\phi_j(\boldsymbol{r_2})=\braket{ij|ij}
 $$  
 
 $$  
-K_{i, j} = \int d^3\vec{r_1}d^3\vec{r_2}\phi^\ast_i(\vec{r_1})\phi^\ast_j(\vec{r_2})\frac{1}{r_{12}}\phi_j(\vec{r_1})\phi_i(\vec{r_2})=\braket{ij|ji}
+K_{i, j} = \int d^3\boldsymbol{r_1}d^3\boldsymbol{r_2}\phi^\ast_i(\boldsymbol{r_1})\phi^\ast_j(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_j(\boldsymbol{r_1})\phi_i(\boldsymbol{r_2})=\braket{ij|ji}
 $$  
 
 である。Hartree法のときと同様、期待値の軌道に対する変分 $\frac{\partial E}{\partial \phi_i}$ が０になる停留条件を課すと、変分法より、  
@@ -547,11 +547,11 @@ $$
 と書ける。この式における、 $\hat{J}_j, \hat{K}_j$ はそれぞれ、クーロン演算子、交換演算子と呼ばれ、次の式で表される。  
 
 ```math  
-\hat{J}_j(\vec{r_1})\phi_i(\vec{r_1}) = \int d^3\vec{r_2}\phi^\ast_j(\vec{r_2})\phi_j(\vec{r_2})\frac{1}{r_{12}}\phi_i(\vec{r_1})\qquad\left( \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{J}_j(\vec{r_1})\phi_i(\vec{r_1}) = J_{ij} \right)
+\hat{J}_j(\boldsymbol{r_1})\phi_i(\boldsymbol{r_1}) = \int d^3\boldsymbol{r_2}\phi^\ast_j(\boldsymbol{r_2})\phi_j(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_i(\boldsymbol{r_1})\qquad\left( \int d^3\boldsymbol{r_1}\phi_i^\ast(\boldsymbol{r_1}) \hat{J}_j(\boldsymbol{r_1})\phi_i(\boldsymbol{r_1}) = J_{ij} \right)
 ```  
 
 ```math  
-\hat{K}_j(\vec{r_1})\phi_i(\vec{r_1}) = \int d^3\vec{r_2}\phi^\ast_j(\vec{r_2})\phi_i(\vec{r_2})\frac{1}{r_{12}}\phi_j(\vec{r_1})\qquad\left( \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{K}_j(\vec{r_1})\phi_i(\vec{r_1}) = K_{ij} \right)
+\hat{K}_j(\boldsymbol{r_1})\phi_i(\boldsymbol{r_1}) = \int d^3\boldsymbol{r_2}\phi^\ast_j(\boldsymbol{r_2})\phi_i(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_j(\boldsymbol{r_1})\qquad\left( \int d^3\boldsymbol{r_1}\phi_i^\ast(\boldsymbol{r_1}) \hat{K}_j(\boldsymbol{r_1})\phi_i(\boldsymbol{r_1}) = K_{ij} \right)
 ```   
 
 さらに、次のようなFock演算子を定義すると、  
@@ -569,7 +569,7 @@ $$
 この式を、 __Hartree-Fock方程式__ と呼ぶ。この式から、軌道エネルギー $\epsilon_i$ は、  
 
 $$  
-\epsilon_i = \int d^3\vec{r_1}\phi_i^\ast(\vec{r_1}) \hat{F} \phi_i(\vec{r_1})
+\epsilon_i = \int d^3\boldsymbol{r_1}\phi_i^\ast(\boldsymbol{r_1}) \hat{F} \phi_i(\boldsymbol{r_1})
 $$  
 
 ```math  
@@ -611,7 +611,7 @@ $$
 　まず、LCAO-MO近似に基づき、分子軌道は、  
 
 $$  
-\phi_i(\vec{r}) = \sum_{p=1}^{n_{AO}} \chi_p(\vec{r})C_{pi}
+\phi_i(\boldsymbol{r}) = \sum_{p=1}^{n_{AO}} \chi_p(\boldsymbol{r})C_{pi}
 $$  
 
 と書ける。注意すべきは、$\chi_p$ が原子軌道ではなく原子軌道系であるということである。直接原子軌道を使うよりも、軌道を模した基底関数を使った方が計算効率が良く、汎用性が高いためである。この展開を使ってあげると、Hartree-Fock方程式が行列方程式になり、
@@ -619,6 +619,7 @@ $$
 $$  
 \boldsymbol{FC_i} = \epsilon_i \boldsymbol{SC_i}
 $$  
+
 
 
 ### 1.2. Kohn-Sham法
