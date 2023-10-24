@@ -704,11 +704,11 @@ $$
 $n_{\sigma}$ はσスピンの電子数を表す。この式にもある通り、互いに反平行なスピンをもつ電子間には、__クーロン相互作用は働くが、交換相互作用は働かない。__ また、クーロン演算子 $\hat{J} _{j\sigma}$ と交換演算子 $\hat{K} _{j\sigma}$ は、  
 
 $$  
-\hat{J}_{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{j\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{i\sigma}(\boldsymbol{r_1})
+\hat{J} _{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{j\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{i\sigma}(\boldsymbol{r_1})
 $$  
 
 $$  
-\hat{K}_{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{i\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{j\sigma}(\boldsymbol{r_1})
+\hat{K} _{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{i\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{j\sigma}(\boldsymbol{r_1})
 $$  
 
 このように定義される方程式を、非制限Hartree-Fock（UHF）方程式、またはPople-Nesbet方程式と呼ぶ。なお、この方程式は、最初にRoothaan法の形で表され、  
@@ -735,23 +735,23 @@ $$
 　さて、２つの異なるスピンを考えているため、スピン演算子の形も少し変わってくる。全スピン演算子 $\boldsymbol{\hat{S}}$ は、各電子に対するスピン角運動量の和として、  
 
 $$  
-\boldsymbol{\hat{S}} = \sum_i^N \boldsymbol{\hat{s}_i}
+\boldsymbol{\hat{S}} = \sum_i^N \boldsymbol{\hat{s} _i}
 $$  
 
 分子軌道 $\phi_i$ のスピンを $\alpha_i, \beta_i$ として書くとき、スピン角運動量演算子はxyzの3成分を考えると、  
 
 $$  
-\hat{s}_x\begin{pmatrix}
+\hat{s} _x\begin{pmatrix}
    \alpha_i \\ \beta_i\\
 \end{pmatrix}=\frac{1}{2}\begin{pmatrix}
    \beta_i \\ \alpha_i\\
 \end{pmatrix},
-\hat{s}_y\begin{pmatrix}
+\hat{s} _y\begin{pmatrix}
    \alpha_i \\ \beta_i\\
 \end{pmatrix}=\frac{1}{2}\begin{pmatrix}
    \beta_i \\ -\alpha_i\\
 \end{pmatrix},
-\hat{s}_z\begin{pmatrix}
+\hat{s} _z\begin{pmatrix}
    \alpha_i \\ \beta_i\\
 \end{pmatrix}=\frac{1}{2}\begin{pmatrix}
    \alpha_i \\ -\beta_i\\
@@ -761,21 +761,21 @@ $$
 $$  
 \boldsymbol{\hat{s}^2}\begin{pmatrix}
    \alpha_i \\ \beta_i\\
-\end{pmatrix}=\left( \hat{s}_x^2 + \hat{s}_y^2 +\hat{s}_z^2 \right)\begin{pmatrix}
+\end{pmatrix}=\left( \hat{s} _x^2 + \hat{s} _y^2 +\hat{s} _z^2 \right)\begin{pmatrix}
    \alpha_i \\ \beta_i\\
 \end{pmatrix}=\frac{3}{4}\begin{pmatrix}
    \alpha_i \\ \beta_i\\
 \end{pmatrix}
 $$  
 
-となり、スピン関数は $\hat{s}^2, \hat{s}_z^2$ の固有関数であり、相対論的効果を考慮しない場合は、ハミルトニアン演算子がスピン演算子に依存しないことから $\hat{s}^2, \hat{s}_z^2$ と可換となる。すなわち、空間部分を含む全波動関数 $\Psi$ は $\hat{s}^2$ と $\hat{s}_z^2$ の固有関数でなければいけない。したがって、次のような式が導ける。  
+となり、スピン関数は $\hat{s}^2, \hat{s} _z^2$ の固有関数であり、相対論的効果を考慮しない場合は、ハミルトニアン演算子がスピン演算子に依存しないことから $\hat{s}^2, \hat{s} _z^2$ と可換となる。すなわち、空間部分を含む全波動関数 $\Psi$ は $\hat{s}^2$ と $\hat{s} _z^2$ の固有関数でなければいけない。したがって、次のような式が導ける。  
 
 $$  
-\boldsymbol{\hat{S}^2}\Psi=\left( \sum^N_{i, j}\boldsymbol{\hat{s}_i}\cdot\boldsymbol{\hat{s}_j} \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\left( \frac{N_{\alpha}-N_{\beta}}{2}+1 \right)\Psi
+\boldsymbol{\hat{S}^2}\Psi=\left( \sum^N_{i, j}\boldsymbol{\hat{s} _i}\cdot\boldsymbol{\hat{s} _j} \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\left( \frac{N_{\alpha}-N_{\beta}}{2}+1 \right)\Psi
 $$  
 
 $$  
-\hat{S}_z \Psi = \left( \sum^N_i \hat{s}_z \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\Psi
+\hat{S} _z \Psi = \left( \sum^N_i \hat{s} _z \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\Psi
 $$  
 
 なお、 $N_{\sigma}$ はσスピンを持つ電子数である。二つ目の式については、スピンの総数が変化しないため、UHF波動関数は満たす。しかし、空間軌道はスピンごとに異なり相殺しないことから1つ目の式は満たさなくなる。  
