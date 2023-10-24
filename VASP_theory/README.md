@@ -684,13 +684,116 @@ $$
 
 と表される。
 
+### 1.1.6. 非制限Hartree-Fock法
+&emsp;いままでは、スピンを考慮せず、閉殻電子の計算を行ってきた。では、不対電子を含む開殻電子の計算を行うにはどうしたらいいのだろうか。この際に用いられるのが、この節のタイトルにもなっている、PopleとNesbetが1954年に開発した、非制限Hartree-Fock（UHF）法である。スピンとして、$\alpha$ と $\beta$ を用いるので、Hartree-Fock方程式は、  
+
+$$  
+\hat{F}_{\alpha} \phi_{i\alpha} = \epsilon_{i\alpha}\phi_{i\alpha}
+$$  
+
+$$  
+\hat{F}_{\beta} \phi_{i\beta} = \epsilon_{i\beta}\phi_{i\beta}
+$$  
+
+と書き直すこととする。この場合の、Fock演算子の中身は、  
+
+$$  
+\hat{F}_{\sigma} = \hat{h}_{\sigma}+\sum_j^{n_{\sigma}}\left( \hat{J}_{j\sigma}-\hat{K}_{j\sigma} \right)+\sum_j^{n_{\sigma'}}\hat{J}_{j\sigma'} \ \ \ \ \left(\sigma\not ={\sigma'}\right)
+$$  
+
+$n_{\sigma}$ はσスピンの電子数を表す。この式にもある通り、互いに反平行なスピンをもつ電子間には、__クーロン相互作用は働くが、交換相互作用は働かない。__ また、クーロン演算子 $\hat{J}_{j\sigma}$ と交換演算子 $\hat{K}_{j\sigma}$ は、  
+
+$$  
+\hat{J}_{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{j\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{i\sigma}(\boldsymbol{r_1})
+$$  
+
+$$  
+\hat{K}_{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{i\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{j\sigma}(\boldsymbol{r_1})
+$$  
+
+このように定義される方程式を、非制限Hartree-Fock（UHF）方程式、またはPople-Nesbet方程式と呼ぶ。なお、この方程式は、最初にRoothaan法の形で表され、  
+
+$$  
+\boldsymbol{F_{\alpha}C_{i\alpha}}=\epsilon_{i\alpha}\boldsymbol{SC_{i\alpha}}
+$$  
+
+$$  
+\boldsymbol{F_{\beta}C_{i\beta}}=\epsilon_{i\beta}\boldsymbol{SC_{i\beta}}
+$$  
+
+この式のスピン付きFock行列 $\boldsymbol{F^{\sigma}}$ とスピン付き重なり積分 $\boldsymbol{S^{\sigma}}$ は、  
+
+$$  
+F_{pq\sigma}=h_{pqr}+\sum_{r,s=1}^{n_{basis}}P_{sr\sigma}\left( \braket{pr|qs}-\braket{pr|sq} \right)+P_{sr\sigma'} \braket{pr|qs}
+$$  
+
+$$  
+S_{pq\sigma}=\int d^3 \boldsymbol{r} \chi_{p\sigma}^\ast(\boldsymbol{r})\chi_{q\sigma}(\boldsymbol{r}) 
+$$  
+
+となる。  
+　さて、２つの異なるスピンを考えているため、スピン演算子の形も少し変わってくる。全スピン演算子 $\boldsymbol{\hat{S}}$ は、各電子に対するスピン角運動量の和として、  
+
+$$  
+\boldsymbol{\hat{S}} = \sum_i^N \boldsymbol{\hat{s}_i}
+$$  
+
+分子軌道 $\phi_i$ のスピンを $\alpha_i, \beta_i$ として書くとき、スピン角運動量演算子はxyzの3成分を考えると、  
+
+$$  
+\hat{s}_x\begin{pmatrix}
+   \alpha_i \\ \beta_i\\
+\end{pmatrix}=\frac{1}{2}\begin{pmatrix}
+   \beta_i \\ \alpha_i\\
+\end{pmatrix},
+\hat{s}_y\begin{pmatrix}
+   \alpha_i \\ \beta_i\\
+\end{pmatrix}=\frac{1}{2}\begin{pmatrix}
+   \beta_i \\ -\alpha_i\\
+\end{pmatrix},
+\hat{s}_z\begin{pmatrix}
+   \alpha_i \\ \beta_i\\
+\end{pmatrix}=\frac{1}{2}\begin{pmatrix}
+   \alpha_i \\ -\beta_i\\
+\end{pmatrix}
+$$  
+
+$$  
+\boldsymbol{\hat{s}^2}\begin{pmatrix}
+   \alpha_i \\ \beta_i\\
+\end{pmatrix}=\left( \hat{s}_x^2 + \hat{s}_y^2 +\hat{s}_z^2 \right)\begin{pmatrix}
+   \alpha_i \\ \beta_i\\
+\end{pmatrix}=\frac{3}{4}\begin{pmatrix}
+   \alpha_i \\ \beta_i\\
+\end{pmatrix}
+$$  
+
+となり、スピン関数は $\hat{s}^2, \hat{s}_z^2$ の固有関数であり、相対論的効果を考慮しない場合は、ハミルトニアン演算子がスピン演算子に依存しないことから $\hat{s}^2, \hat{s}_z^2$ と可換となる。すなわち、空間部分を含む全波動関数 $\Psi$ は $\hat{s}^2$ と $\hat{s}_z^2$ の固有関数でなければいけない。したがって、次のような式が導ける。  
+
+$$  
+\boldsymbol{\hat{S}^2}\Psi=\left( \sum^N_{i, j}\boldsymbol{\hat{s}_i}\cdot\boldsymbol{\hat{s}_j} \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\left( \frac{N_{\alpha}-N_{\beta}}{2}+1 \right)\Psi
+$$  
+
+$$  
+\hat{S}_z \Psi = \left( \sum^N_i \hat{s}_z \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\Psi
+$$  
+
+なお、 $N_{\sigma}$ はσスピンを持つ電子数である。二つ目の式については、スピンの総数が変化しないため、UHF波動関数は満たす。しかし、空間軌道はスピンごとに異なり相殺しないことから1つ目の式は満たさなくなる。  
+　つまり、__UHF波動関数は__$\boldsymbol{S}^2$__の固有関数ではない__ といえる。$\boldsymbol{S}^2$ の期待値を考えると、  
+
+$$  
+\langle\boldsymbol{S}^2\rangle _{UHF}=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\left( \frac{N_{\alpha}-N_{\beta}}{2}+1 \right)+N_{\beta}-\sum^N_{i,j}\left| \int d^3 \boldsymbol{r} \phi^\ast_{i\alpha}(\boldsymbol{r})\phi_{j\beta} \right|^2
+$$  
+
+と書けることが、1994年にSzaboとOstlundによって示されている。
+
 ### 1.2. Kohn-Sham法
 &emsp;では、次に、Kohn-Sham法について解説する。
 
 ## 2. Smearing  
 &emsp;電子の占有率（Fermi分布）などからエネルギーバンド計算や電子のSCF計算を行う際、エネルギーを離散的として計算すると、数値的な齟齬が生じてしまう。  
 ![SMEARING](https://github.com/MDGroup-WatanabeLab/image_for_mdpython/assets/138444525/a3ece222-b23b-444c-a534-fe1c577931b0)   
-　そのため、上の図のオレンジ線色のように、エネルギーに幅を持たせ（SIGMA）、エネルギーを連続的であると近似することで、よりリアルに近い値をことができる。この幅を持たせることが「Smearing」である。  
+　そのため、上の図のオレンジ線色のように、エネルギーに幅を持たせ（SIGMA）、エネルギーを連続的であると近似することで、よりリアルに近い値を得ることができる。この幅を持たせることが「Smearing」である。  
 　VASPのINCARファイルでは、ISMEARがSmearingの種類、SIGMAがその幅を指定するパラメータとなっており、[VASPwiki](https://www.vasp.at/wiki/index.php/ISMEAR)によると、推奨値は以下の表のようになっている。
 
 |INCARタグ|金属 / Metal|半導体 / Semicondutor|
