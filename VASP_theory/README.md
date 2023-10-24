@@ -703,13 +703,13 @@ $$
 
 $n_{\sigma}$ はσスピンの電子数を表す。この式にもある通り、互いに反平行なスピンをもつ電子間には、__クーロン相互作用は働くが、交換相互作用は働かない。__ また、クーロン演算子 $\hat{J} _{j\sigma}$ と交換演算子 $\hat{K} _{j\sigma}$ は、  
 
-$$  
+```math  
 \hat{J} _{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{j\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{i\sigma}(\boldsymbol{r_1})
-$$  
+```  
 
-$$  
+```math  
 \hat{K} _{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{i\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{j\sigma}(\boldsymbol{r_1})
-$$  
+```  
 
 このように定義される方程式を、非制限Hartree-Fock（UHF）方程式、またはPople-Nesbet方程式と呼ぶ。なお、この方程式は、最初にRoothaan法の形で表され、  
 
@@ -770,20 +770,20 @@ $$
 
 となり、スピン関数は $\hat{s}^2, \hat{s} _z^2$ の固有関数であり、相対論的効果を考慮しない場合は、ハミルトニアン演算子がスピン演算子に依存しないことから $\hat{s}^2, \hat{s} _z^2$ と可換となる。すなわち、空間部分を含む全波動関数 $\Psi$ は $\hat{s}^2$ と $\hat{s} _z^2$ の固有関数でなければいけない。したがって、次のような式が導ける。  
 
-$$  
+```math  
 \boldsymbol{\hat{S}^2}\Psi=\left( \sum^N_{i, j}\boldsymbol{\hat{s} _i}\cdot\boldsymbol{\hat{s} _j} \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\left( \frac{N_{\alpha}-N_{\beta}}{2}+1 \right)\Psi
-$$  
+```  
 
-$$  
+```math  
 \hat{S} _z \Psi = \left( \sum^N_i \hat{s} _z \right)\Psi=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\Psi
-$$  
+```  
 
 なお、 $N_{\sigma}$ はσスピンを持つ電子数である。二つ目の式については、スピンの総数が変化しないため、UHF波動関数は満たす。しかし、空間軌道はスピンごとに異なり相殺しないことから1つ目の式は満たさなくなる。  
 　つまり、__UHF波動関数は__$\boldsymbol{S}^2$__の固有関数ではない__ といえる。$\boldsymbol{S}^2$ の期待値を考えると、  
 
-$$  
+```math  
 \langle\boldsymbol{S}^2\rangle _{UHF}=\left( \frac{N_{\alpha}-N_{\beta}}{2} \right)\left( \frac{N_{\alpha}-N_{\beta}}{2}+1 \right)+N_{\beta}-\sum^N_{i,j}\left| \int d^3 \boldsymbol{r} \phi^\ast_{i\alpha}(\boldsymbol{r})\phi_{j\beta} \right|^2
-$$  
+```  
 
 と書けることが、1994年にSzaboとOstlundによって示されている。
 
