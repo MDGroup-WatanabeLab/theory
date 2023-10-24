@@ -687,21 +687,21 @@ $$
 ### 1.1.6. 非制限Hartree-Fock法
 &emsp;いままでは、スピンを考慮せず、閉殻電子の計算を行ってきた。では、不対電子を含む開殻電子の計算を行うにはどうしたらいいのだろうか。この際に用いられるのが、この節のタイトルにもなっている、PopleとNesbetが1954年に開発した、非制限Hartree-Fock（UHF）法である。スピンとして、$\alpha$ と $\beta$ を用いるので、Hartree-Fock方程式は、  
 
-$$  
+```math  
 \hat{F}_{\alpha} \phi_{i\alpha} = \epsilon_{i\alpha}\phi_{i\alpha}
-$$  
+```  
 
-$$  
+```math  
 \hat{F}_{\beta} \phi_{i\beta} = \epsilon_{i\beta}\phi_{i\beta}
-$$  
+```  
 
 と書き直すこととする。この場合の、Fock演算子の中身は、  
 
-$$  
+```math  
 \hat{F}_{\sigma} = \hat{h}_{\sigma}+\sum_j^{n_{\sigma}}\left( \hat{J}_{j\sigma}-\hat{K}_{j\sigma} \right)+\sum_j^{n_{\sigma'}}\hat{J}_{j\sigma'} \ \ \ \ \left(\sigma\not ={\sigma'}\right)
-$$  
+```  
 
-$n_{\sigma}$ はσスピンの電子数を表す。この式にもある通り、互いに反平行なスピンをもつ電子間には、__クーロン相互作用は働くが、交換相互作用は働かない。__ また、クーロン演算子 $\hat{J}_{j\sigma}$ と交換演算子 $\hat{K}_{j\sigma}$ は、  
+$n_{\sigma}$ はσスピンの電子数を表す。この式にもある通り、互いに反平行なスピンをもつ電子間には、__クーロン相互作用は働くが、交換相互作用は働かない。__ また、クーロン演算子 $\hat{J} _{j\sigma}$ と交換演算子 $\hat{K} _{j\sigma}$ は、  
 
 $$  
 \hat{J}_{j\sigma}(\boldsymbol{r_1})\phi_{i\sigma}(\boldsymbol{r_1})=\int d^3 \boldsymbol{r_2}\phi_{j\sigma}^\ast(\boldsymbol{r_2})\phi_{j\sigma}(\boldsymbol{r_2})\frac{1}{r_{12}}\phi_{i\sigma}(\boldsymbol{r_1})
