@@ -195,6 +195,10 @@ V(r)=\epsilon\sum_i\sum_{j>i}f_2\left(\frac{r_{ij}}{\sigma}\right)+\epsilon\sum_
 $$  
 
 $$  
+f_2(r)=A\left(Br^{-p}-r^{-q}\right) exp \left( \frac{\delta}{r-a} \right)
+$$  
+
+$$  
 f_3\left(\boldsymbol{r_i}, \boldsymbol{r_j}, \boldsymbol{r_k}\right)= h(r_{ij}, r_{ik}, \theta_{jik})+h(r_{ji}, r_{jk}, \theta_{ijk})+h(r_{ki}, r_{kj}, \theta_{ikj})\ \ \ \ (3.2.3)
 $$  
 
