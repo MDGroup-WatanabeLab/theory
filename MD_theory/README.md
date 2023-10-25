@@ -195,7 +195,7 @@ V(r)=\epsilon\sum_i\sum_{j>i}f_2\left(\frac{r_{ij}}{\sigma}\right)+\epsilon\sum_
 $$  
 
 $$  
-f_2(r)=A\left(Br^{-p}-r^{-q}\right) exp \left( \frac{\delta}{r-a} \right)
+f_2(r)=A\left(Br^{-p}-r^{-q}\right) exp \left( \frac{\delta}{r-a} \right)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (3.2.2)
 $$  
 
 $$  
