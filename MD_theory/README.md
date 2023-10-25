@@ -45,7 +45,7 @@ graph TD;
 　さて、ポテンシャルから力を計算をすると述べた。大学物理の復習となるが、式で表すと次のようになる。  
 
 $$  
-\boldsymbol{F} = m \frac{d^2 \boldsymbol{r}}{dt^2}=-\frac{\partial U}{\partial \boldsymbol{r}}
+\boldsymbol{F} = m \frac{d^2 \boldsymbol{r}}{dt^2}=-\frac{\partial V}{\partial \boldsymbol{r}}
 $$  
 
 ポテンシャルエネルギーは $U$ とした。このように、運動方程式を解くにはポテンシャルエネルギーが必須なのである。では、この運動方程式はどのようにMDシミュレーションで使われ、解かれるのか？  
@@ -167,3 +167,94 @@ $$
 $$  
 
 これで導出は完了である。
+
+## 3. ポテンシャル
+&emsp;前の節で述べた通り、運動方程式の利用にはポテンシャルエネルギーが必要不可欠である。昨今では、機械学習ポテンシャルを作成し、計算を行う場合も出てきているが、それまでは経験的ポテンシャルというものが用いられていた。検索するだけで様々な種類のポテンシャルが出てくるが、本ドキュメントでは、いくつか抜粋して紹介するにとどめる。なお、機械学習ポテンシャルについては別のドキュメントで触れることとする。
+　紹介の前に、ポテンシャルそのものについて説明する。頭の中で、原子が64個ある系を想像してほしい。__原子1個に注目したとき、__ 相互作用はどうなっているだろう？2体系は63個あり、3体系は1935個ある。4体系等も考えていくと大変なことになる。  
+
+$$  
+V_{total} = \sum_{j=2}^N \sum^{j-1}_{i=1}V_2(\boldsymbol{r_i, r_j})+\sum_{k=3}^N\sum_{j=2}^{k-1} \sum^{j-1}_{i=1}V_3(\boldsymbol{r_i, r_j, r_k}) + \cdots + V_N(\boldsymbol{r_1, r_2,\cdots, r_N})
+$$  
+
+相互作用は系の拡張によりどんどん大きくなっていくので、近似を行うことで系の拡張にも対応できるようにしなければならない。詳しい近似の内容は、ポテンシャルや適用したい系などにより異なるので適宜確認しなければならない。
+
+### 3.1 Coulomb ポテンシャル
+&emsp;電荷をもつ物体同士に働く相互作用であり、  
+
+$$  
+V=\frac{1}{4\pi\epsilon}\frac{Z_1Z_2}{|\boldsymbol{r_{21}}|}\ \ \ \ \ \ \ \ (3.1.1)
+$$  
+
+$\epsilon$ は誘電率、$\boldsymbol{r_{21}}$ は粒子間距離、Zは電荷を表す。電磁気学で学習済みだと思うので特に詳しい説明はしない。
+
+### 3.2 Stilinger-Weber ポテンシャル
+&emsp;SWポテンシャルと略されることもあるポテンシャルで、主にダイアモンド構造を取るⅣ族原子やその混晶、共有結合結晶に適用される。式としては、  
+
+$$  
+V(r)=\epsilon\sum_i\sum_{j>i}f_2\left(\frac{r_{ij}}{\sigma}\right)+\epsilon\sum_i\sum_{j>i}\sum_{k>j}f_3\left(\frac{\boldsymbol{r_i}}{\sigma}, \frac{\boldsymbol{r_j}}{\sigma}, \frac{\boldsymbol{r_k}}{\sigma}\right)\ \ \ \ \ \ \ \ (3.2.1)
+$$  
+
+$$  
+f_2(r) =
+\left\{
+\begin{array}{ll}
+    A(Br^{-p}-r^{-q})exp\left(\frac{\sigma}{r-a}\right) & (r<a) \\
+    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0 & (r\ge a)
+\end{array}
+\right.
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (3.2.2)
+$$  
+
+$$  
+f_3\left(\boldsymbol{r_i}, \boldsymbol{r_j}, \boldsymbol{r_k}\right)= h(r_{ij}, r_{ik}, \theta_{jik})+h(r_{ji}, r_{jk}, \theta_{ijk})+h(r_{ki}, r_{kj}, \theta_{ikj})\ \ \ \ (3.2.3)
+$$  
+
+$$  
+h(r_{ij}, r_{ik}, \theta_{jik})=\lambda exp\left[ \left(\frac{\gamma}{r_{ij}-a}\right)+\left(\frac{\gamma}{r_{ik}-a}\right) \right]\left( cos\theta_{jik}+\frac{1}{3} \right)^2\ \ \ \ (3.2.4)
+$$  
+
+各パラメータについては以下の表のとおり。 
+|記号|単位|意味|
+|:--:|:--:|:--:|
+|$a$|$\AA$|カットオフ距離|
+|$\epsilon$|eV|結合の強さによるパラメータ|
+|$\sigma$|$\AA$|原子の大きさに依るパラメータ|
+|$A, B, p, q, \delta, \lambda, \gamma$|$L^0M^0T^0$|フィッティングで決定されるパラメータ|
+
+2体系と3体系の２つで構成されているため、4体系以降は考えない。  
+
+### 3.3 Lennard-Jones ポテンシャル
+&emsp;アルゴンなどの希ガスを対象とした2体間相互作用ポテンシャルであり、式は、
+
+$$  
+V(r)=4\epsilon\left[ \left( \frac{\sigma}{r} \right)^6 - \left( \frac{\sigma}{r} \right)^{12}\right] \ \ \ \ \ \ \ \ (3.3.1)
+$$  
+
+各パラメータについては以下の表のとおり。 
+|記号|単位|意味|
+|:--:|:--:|:--:|
+|$\epsilon$|eV|エネルギーの最小値の値|
+|$\sigma$|$\AA$|原子の大きさに依るパラメータ|
+
+ポテンシャルのカーブは次のようになる。  
+<div align = "center">
+<img width="286" alt="スクリーンショット 2023-10-25 141014" src="https://github.com/MDGroup-WatanabeLab/theory/assets/138444525/43f1cea6-f105-4630-a9d6-c88e29483321">
+</div>
+
+### 3.4 Born-Mayer-Huggins ポテンシャル
+&emsp;イオン結晶を対象としたポテンシャルであり、式は、
+
+$$  
+V(r)= \frac{Z_iZ_j e^2}{4\pi\epsilon r}+A_{ij}b\cdot exp\left( \frac{\sigma_i+\sigma_j-r_{ij}}{\rho} \right)-\frac{C_{ij}}{r_{ij}^6}-\frac{D_{ij}}{r_{ij}^8} \ \ \ \ \ \ (3.4.1)
+$$  
+
+各パラメータについては以下の表のとおり。 
+|記号|単位|意味|
+|:--:|:--:|:--:|
+|$e$|$C$|電気素量(1.60217662)|
+|$Z_i, Z_j$||イオンの価数|
+|$r_{ij}$|$\AA$|イオン間距離|
+|$A_{ij}$||ポーリング因子|
+|$b$||反発力に依るパラメータ|
+|$\sigma_i, \sigma_j$||原子の大きさに依るパラメータ|
+|$\rho$||ソフトネスパラメータ|
