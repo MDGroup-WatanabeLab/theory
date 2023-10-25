@@ -194,9 +194,9 @@ $$
 V(r)=\epsilon\sum_i\sum_{j>i}f_2\left(\frac{r_{ij}}{\sigma}\right)+\epsilon\sum_i\sum_{j>i}\sum_{k>j}f_3\left(\frac{\boldsymbol{r_i}}{\sigma}, \frac{\boldsymbol{r_j}}{\sigma}, \frac{\boldsymbol{r_k}}{\sigma}\right)\ \ \ \ \ \ \ \ (3.2.1)
 $$  
 
-```math 
-f_2(r) =A(Br^{-p}-r^{-q})exp\left(\frac{\sigma}{r-a}\right) \ \ \ \ \ \ \ \ (r<a)\ \ \ \ \ \ \ \ (3.2.2)
-```  
+$$  
+f_2 (r) =A( Br^{-p} - r^{-q} ) exp \left( \frac{\sigma}{r-a} \right) \ \ \ \ \ \ \ \ (r<a) \ \ \ \ \ \ \ \ (3.2.2)
+$$  
 
 $$  
 f_3\left(\boldsymbol{r_i}, \boldsymbol{r_j}, \boldsymbol{r_k}\right)= h(r_{ij}, r_{ik}, \theta_{jik})+h(r_{ji}, r_{jk}, \theta_{ijk})+h(r_{ki}, r_{kj}, \theta_{ikj})\ \ \ \ (3.2.3)
