@@ -354,7 +354,7 @@ $$
 また、  
 
 $$  
-erfc(r) = \frac{2}{\sqrt{\pi}} \int^{\infin}_r e^{-t^2}dt\ \ \ \ \ \ \ \ (4.4.6)
+erfc(r) = \frac{2}{\sqrt{\pi}} \int^{\infty}_r e^{-t^2}dt\ \ \ \ \ \ \ \ (4.4.6)
 $$  
 
 $$  
