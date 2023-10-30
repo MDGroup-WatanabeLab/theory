@@ -345,13 +345,11 @@ V^{(d)}(r)=\frac{2\pi}{(1+2\epsilon')L^3}\left( \sum^N_{i=1} Z_i\boldsymbol{r_i}
 $$  
 
 ここで、各記号の意味は、
-
-<div align = "center">  
+  
 |記号|単位|意味|
 |:-:|:-:|:-:|
 |L|Å|単位胞の長さ|
 |$\alpha$|$L^{-1}$|Ewaldパラメータ|
-</div>  
 
 また、  
 
