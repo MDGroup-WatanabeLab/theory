@@ -420,8 +420,80 @@ $$
 　温度がT一定の系に対して温度を制御する際は、系が温度Tの無限に大きい熱浴に浸かって熱平衡状態になっていると考えられる。このドキュメントでは、__Langevin法、能勢法、能勢-Hoover法__ の3つを紹介する。
 
 ### 6.1 Langevin法
+ブラウン運動を記述する確率微分方程式であるLangevin方程式を数値的に解く方法が、Langevin法である。この方程式は、  
+
+$$  
+m_i \frac{d^2 \boldsymbol{r_i}}{dt^2}=-\frac{\partial V_{total}}{\partial \boldsymbol{r_i}}-\xi\frac{d\boldsymbol{r_i}(t)}{dt}+\boldsymbol{R}(t)\ \ \ \ \ \ \ \ (6.1.1)
+$$  
+
+それぞれの項は、原子間相互作用、摩擦力、原子を動かす振動力に起因する力を表す。このうち、第2項と第3項は熱浴との相互作用を表し、  
+
+$$  
+\left< R(t) \right>=0\ \ \ \ \ \ \ \ (6.1.2)
+$$  
+
+$$  
+\left< R(t)R(t') \right>=2\xi k_B T_{set} \delta(t-t')\ \ \ \ \ \ \ \ (6.1.3)
+$$  
+
+を満たしている。また、 $T_{set}$ は設定温度である。  
+　この方程式を解くためには、M. P. Allen が提案したAllenのアルゴリズムが用いられる。
+
+$$  
+\boldsymbol{r_i}(t+\Delta t)=\boldsymbol{r_i}(t)+c_1\Delta t\cdot\boldsymbol{v_i}(t) +c_2(+\Delta t)^2 \frac{\boldsymbol{F_i}(t)}{m_i} + \delta\boldsymbol{r}^G\ \ \ \ \ \ \ \ (6.1.4)
+$$  
+
+$$  
+\boldsymbol{v_i}(t+\Delta t)=c_0\boldsymbol{r_i}(t)+(c_1-c_2)\Delta t\cdot
+\frac{\boldsymbol{F_i}(t)}{m_i} + c_2\Delta t \frac{\boldsymbol{F_i}(t+\Delta t)}{m_i} + \delta\boldsymbol{v}^G\ \ \ \ \ \ \ \ (6.1.5)
+$$  
+
+各係数は、  
+
+$$  
+c_0 = e^{-\xi\Delta t}, \ \ c_1=\frac{1-c_0}{\xi \Delta t}, \ \ c_2=\frac{1-c_1}{\xi \Delta t}\ \ \ \ \ \ \ \ (6.1.6)
+$$  
+
+さらに、$\delta\boldsymbol{r}^G, \delta\boldsymbol{v}^G$ の分散はそれぞれ、  
+
+$$  
+\sigma_{\boldsymbol{r}}^2=\Delta t \frac{k_b T}{m\xi}\{ 2-\frac{1}{m\xi}(3-4e^{-\xi\Delta t}+e^{-2\xi\Delta t})\}\ \ \ \ \ \ \ \ (6.1.7)
+$$  
+
+$$  
+\sigma_{\boldsymbol{v}}^2=\frac{k_BT}{m}(1-e^{-2\xi\Delta t})\ \ \ \ \ \ \ \ (6.1.8)
+$$  
 
 ### 6.2 能勢法
+次に、能勢法について説明する。これは、新たな力学変数を与えて（拡張系という）温度を制御する方法である。特徴的なのは、時間をスケーリングして系の温度制御を実現している点である。拡張系の時間変数を $t$ 、原子集団の現実系の時間変数を $t'$ 、スケーリング因子を $s$ とすると、  
+
+$$  
+dt' = \frac{dt}{s}\ \ \ \ \ \ \ \ (6.2.1)
+$$  
+
+これにより、各粒子の現実系の速度ベクトルは、  
+
+$$  
+\boldsymbol{v}'_i = s \dot{\boldsymbol{r}}_i\ \ \ \ \ \ \ \ (6.2.2)
+$$  
+
+つまり、sの値が変化すると、現実系の運動学的温度も変化するので、熱浴と系の間の熱エネルギーの交換を表現できていることになる。そして、ラグランジアンLは、  
+
+$$  
+L=\sum^N_{i=1}\frac{m_i}{2}s^2\dot{\boldsymbol{r}}_i^2-V_{total}+\frac{Q}{2}\dot{s}^2-gk_BT_{set}\ ln\ s\ \ \ \ \ \ \ \ (6.2.3)
+$$  
+
+第3項はsの運動エネルギーを表し、Qは質量を表す。第4項はsのポテンシャルエネルギーである。このラグランジアンを用いて、Euler-Lagrangeの運動定式より、 $\boldsymbol{r_i}, s$ の運動方程式は、  
+
+$$  
+m_i\ddot{\boldsymbol{r}}_i = -\frac{1}{s^2}\frac{\partial V_{total}}{\partial \boldsymbol{r}_i}-m_i \frac{2\dot{s}}{s}\dot{\boldsymbol{r}}_i
+$$  
+
+$$  
+Q\ddot{s}=\sum^N_{i=1}m_i s \dot{\boldsymbol{r}}_i^2-\frac{gk_BT_{set}}{s}
+$$  
+
+と書ける。能勢法におけるMDでは、この運動方程式を解くことで温度を制御している。
 
 ### 6.3 能勢-Hoover法
 
