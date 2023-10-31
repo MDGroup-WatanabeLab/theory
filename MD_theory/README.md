@@ -479,19 +479,19 @@ $$
 
 つまり、sの値が変化すると、現実系の運動学的温度も変化するので、熱浴と系の間の熱エネルギーの交換を表現できていることになる。そして、ラグランジアンLは、  
 
-$$  
+```math  
 L=\sum^N_{i=1}\frac{m_i}{2}s^2\dot{\boldsymbol{r}}_i^2-V_{total}+\frac{Q}{2}\dot{s}^2-gk_BT_{set}\ ln\ s\ \ \ \ \ \ \ \ (6.2.3)
-$$  
+```  
 
 第3項はsの運動エネルギーを表し、Qは質量を表す。第4項はsのポテンシャルエネルギーである。このラグランジアンを用いて、Euler-Lagrangeの運動定式より、 $\boldsymbol{r_i}, s$ の運動方程式は、  
 
-$$  
-m_i\ddot{\boldsymbol{r}}_i = -\frac{1}{s^2}\frac{\partial V_{total}}{\partial \boldsymbol{r}_i}-m_i \frac{2\dot{s}}{s}\dot{\boldsymbol{r}}_i
-$$  
+```math  
+m_i\ddot{\boldsymbol{r}}_i = -\frac{1}{s^2}\frac{\partial V_{total}}{\partial \boldsymbol{r}_i}-m_i \frac{2\dot{s}}{s}\dot{\boldsymbol{r}}_i\ \ \ \ \ \ \ \ (6.2.4)
+```  
 
-$$  
-Q\ddot{s}=\sum^N_{i=1}m_i s \dot{\boldsymbol{r}}_i^2-\frac{gk_BT_{set}}{s}
-$$  
+```math  
+Q\ddot{s}=\sum^N_{i=1}m_i s \dot{\boldsymbol{r}}_i^2-\frac{gk_BT_{set}}{s}\ \ \ \ \ \ \ \ (6.2.5)
+```  
 
 と書ける。能勢法におけるMDでは、この運動方程式を解くことで温度を制御している。
 
