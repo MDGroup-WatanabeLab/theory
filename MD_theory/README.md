@@ -171,7 +171,7 @@ $$
 　紹介の前に、ポテンシャルそのものについて説明する。頭の中で、原子が64個ある系を想像してほしい。__原子1個に注目したとき、__ 相互作用はどうなっているだろう？2体系は63個あり、3体系は1935個ある。4体系等も考えていくと大変なことになる。  
 
 ```math
-V_{total} = \sum_{j=2}^N \sum^{j-1}_{i=1}V_2(\boldsymbol{r_i, r_j})+\sum_{k=3}^N\sum_{j=2}^{k-1} \sum^{j-1}_{i=1}V_3(\boldsymbol{r_i, r_j, r_k}) + \cdots + V_N(\boldsymbol{r_1, r_2,\cdots, r_N})
+E_{total} = \sum_{j=2}^N \sum^{j-1}_{i=1}V_2(\boldsymbol{r_i, r_j})+\sum_{k=3}^N\sum_{j=2}^{k-1} \sum^{j-1}_{i=1}V_3(\boldsymbol{r_i, r_j, r_k}) + \cdots + V_N(\boldsymbol{r_1, r_2,\cdots, r_N})
 ``` 
 
 相互作用は系の拡張によりどんどん大きくなっていくので、近似を行うことで系の拡張にも対応できるようにしなければならない。詳しい近似の内容は、ポテンシャルや適用したい系などにより異なるので適宜確認しなければならない。
@@ -423,7 +423,7 @@ $$
 ブラウン運動を記述する確率微分方程式であるLangevin方程式を数値的に解く方法が、Langevin法である。この方程式は、  
 
 $$  
-m_i \frac{d^2 \boldsymbol{r_i}}{dt^2}=-\frac{\partial V_{total}}{\partial \boldsymbol{r_i}}-\xi\frac{d\boldsymbol{r_i}(t)}{dt}+\boldsymbol{R}(t)\ \ \ \ \ \ \ \ (6.1.1)
+m_i \frac{d^2 \boldsymbol{r_i}}{dt^2}=-\frac{\partial E_{total}}{\partial \boldsymbol{r_i}}-\xi\frac{d\boldsymbol{r_i}(t)}{dt}+\boldsymbol{R}(t)\ \ \ \ \ \ \ \ (6.1.1)
 $$  
 
 それぞれの項は、原子間相互作用、摩擦力、原子を動かす振動力に起因する力を表す。このうち、第2項と第3項は熱浴との相互作用を表し、  
@@ -477,16 +477,16 @@ $$
 \boldsymbol{v}'_i = s \dot{\boldsymbol{r}}_i\ \ \ \ \ \ \ \ (6.2.2)
 $$  
 
-つまり、sの値が変化すると、現実系の運動学的温度も変化するので、熱浴と系の間の熱エネルギーの交換を表現できていることになる。そして、ラグランジアンLは、  
+つまり、sの値が変化すると、現実系の運動学的温度も変化するので、熱浴と系の間の熱エネルギーの交換を表現できていることになる。そして、ラグランジアンLは、系の自由度を表す無次元パラメータ $g$ を用いて、  
 
 ```math  
-L=\sum^N_{i=1}\frac{m_i}{2}s^2\dot{\boldsymbol{r}}_i^2-V_{total}+\frac{Q}{2}\dot{s}^2-gk_BT_{set}\ ln\ s\ \ \ \ \ \ \ \ (6.2.3)
+L=\sum^N_{i=1}\frac{m_i}{2}s^2\dot{\boldsymbol{r}}_i^2-E_{total}+\frac{Q}{2}\dot{s}^2-gk_BT_{set}\ ln\ s\ \ \ \ \ \ \ \ (6.2.3)
 ```  
 
 第3項はsの運動エネルギーを表し、Qは質量を表す。第4項はsのポテンシャルエネルギーである。このラグランジアンを用いて、Euler-Lagrangeの運動定式より、 $\boldsymbol{r_i}, s$ の運動方程式は、  
 
 ```math  
-m_i\ddot{\boldsymbol{r}}_i = -\frac{1}{s^2}\frac{\partial V_{total}}{\partial \boldsymbol{r}_i}-m_i \frac{2\dot{s}}{s}\dot{\boldsymbol{r}}_i\ \ \ \ \ \ \ \ (6.2.4)
+m_i\ddot{\boldsymbol{r}}_i = -\frac{1}{s^2}\frac{\partial E_{total}}{\partial \boldsymbol{r}_i}-m_i \frac{2\dot{s}}{s}\dot{\boldsymbol{r}}_i\ \ \ \ \ \ \ \ (6.2.4)
 ```  
 
 ```math  
@@ -496,6 +496,98 @@ Q\ddot{s}=\sum^N_{i=1}m_i s \dot{\boldsymbol{r}}_i^2-\frac{gk_BT_{set}}{s}\ \ \ 
 と書ける。能勢法におけるMDでは、この運動方程式を解くことで温度を制御している。
 
 ### 6.3 能勢-Hoover法
+最後に、能勢-Hoover法の説明をする。まず、原子N個と $s$ の拡張系のハミルトニアンは、  
+
+$$  
+H=\sum_{i=1}^N \frac{\boldsymbol{p}_i^2}{2m_is^2}+E_{total}+\frac{p_s^2}{2Q}+gk_BT_{set}\cdot ln\ s\ \ \ \ \ \ \ \ (6.3.1)
+$$  
+
+と書け、このハミルトニアンから得られる正準方程式は、
+
+$$  
+\frac{d\boldsymbol{r}_i}{dt}=\frac{\partial H}{\partial \boldsymbol{p}_i}=\frac{\boldsymbol{p}_i}{m_is^2}\ \ \ \ \ \ \ \ (6.3.2)
+$$  
+
+$$  
+\frac{d\boldsymbol{p}_i}{dt}=-\frac{\partial H}{\partial \boldsymbol{r}_i}=-\frac{\partial E_{total}}{\partial \boldsymbol{r}_i}\ \ \ \ \ \ \ \ (6.3.3)
+$$  
+
+$$  
+\frac{ds}{dt}=\frac{\partial H}{\partial p_s}=\frac{p_s}{Q}\ \ \ \ \ \ \ \ (6.3.4)
+$$  
+
+$$  
+\frac{dp_s}{dt}=-\frac{\partial H}{\partial s}=\frac{1}{s}\left( \sum^N_{i=1} \frac{\boldsymbol{p}_i^2}{m_is}-gk_BT_{set} \right)\ \ \ \ \ \ \ \ (6.3.5)
+$$  
+
+ここで、スケーリング因子を用いて拡張系から現実系へ変換すると、
+
+$$  
+\boldsymbol{r}_i' = \boldsymbol{r}_i\ , \ p_s'=\frac{p_s}{s}\ ,\ s'=s\ ,\ dt'=\frac{dt}{s}\ \ \ \ \ \ \ \ (6.3.6)
+$$  
+
+を用いて、
+
+$$  
+\frac{d\boldsymbol{r}_i'}{dt'}=\frac{\boldsymbol{p}_i'}{m_i}\ \ \ \ \ \ \ \ (6.3.7)
+$$  
+
+$$  
+\frac{d\boldsymbol{p}_i'}{dt'}=-\frac{\partial E_{total}}{\partial \boldsymbol{r}_i'}-\frac{1}{s'}\frac{ds'}{dt'}\boldsymbol{p}_i'\ \ \ \ \ \ \ \ (6.3.8)
+$$  
+
+$$  
+\frac{ds'}{dt'}=s'^2\frac{p_s'}{Q}\ \ \ \ \ \ \ \ (6.3.9)
+$$  
+
+$$  
+\frac{dp_s'}{dt'}=-\frac{\partial H}{\partial s}=\frac{1}{s'}\left( \sum^N_{i=1} \frac{\boldsymbol{p}_i'^2}{m_i}-gk_BT_{set} \right)-\frac{1}{s'}\frac{ds'}{dt'}p_s'\ \ \ \ \ \ \ \ (6.3.10)
+$$  
+
+と書き直せる。この式に対し、W. G. Hooverは新たな変数として、  
+
+$$  
+\zeta = \frac{1}{s'}\frac{ds'}{dt'}=\frac{s'p_s'}{Q}\ \ \ \ \ \ \ \ (6.3.11)
+$$  
+
+を提案した。この ζ により、(6.3.7)～(6.3.10)式は、次のように書き直せる。  
+
+$$  
+\frac{d\boldsymbol{r}_i'}{dt'}=\frac{\boldsymbol{p}_i'}{m_i}\ \ \ \ \ \ \ \ (6.3.12)
+$$  
+
+$$  
+\frac{d\boldsymbol{p}_i'}{dt'}=-\frac{\partial E_{total}}{\partial \boldsymbol{r}_i'}-\zeta\boldsymbol{p}_i'\ \ \ \ \ \ \ \ (6.3.13)
+$$  
+
+$$  
+\frac{d\ ln s'}{dt'}=\zeta\ \ \ \ \ \ \ \ (6.3.14)
+$$  
+
+$$  
+\frac{d\zeta}{dt'}=\frac{1}{Q}\left( \sum^N_{i=1} \frac{\boldsymbol{p}_i'^2}{m_i}-gk_BT_{set} \right)\ \ \ \ \ \ \ \ (6.3.15)
+$$ 
+
+(6.3.12)と(6.3.13)式は、[Langevin方程式](#61-langevin法)と同様、摩擦力を考慮した運動方程式であり、ζ が摩擦係数として、(6.3.15)式に依って変化する。  
+　さて、(6.3.15)式に注目してほしい。系の自由度は、原子数が N なら $g=3N$ となる。そして、 $\sum^N_{i=1} \frac{\boldsymbol{p}_i'^2}{m_i}$ は運動学的温度であった。したがって、次のように書き直せる。  
+
+$$  
+\frac{d\zeta}{dt'}=\frac{1}{Q}\left(T-3Nk_BT_{set} \right)\ \ \ \ \ \ \ \ (6.3.16)
+$$ 
+
+(6.3.16)式からは、次のことがわかる。
+
+- $\zeta$ は運動学的温度が目的の温度より高いと増加、低いと減少
+- (6.3.13)式より、 $\zeta$ が増加すると運動学的温度が低下、減少すると運動学的温度が上昇
+
+以上2つの点から、 $\zeta$ によって、運動学的温度に対し、一定値の周辺にのみ変化を許すフィードバックがもたらされることが読み取れる。実際のMDをした際の温度変化のグラフは下のようになっている。  
+
+<div align = "center">  
+<img width="326" alt="スクリーンショット 2023-11-01 112330" src="https://github.com/MDGroup-WatanabeLab/theory/assets/138444525/a9766618-b7a3-4aad-9dba-9417ba89cd2a">
+</div>  
+
+このように、温度がある程度変化しながら温度は上昇している様子がわかる。  
+　さらに、この $\zeta$ を複数にし、原子と複数の熱浴の相互関係を記述することも可能である。原子を複数の別の熱浴に分割して入れたり、熱浴を別の熱浴の中にいれる系を記述することも可能となる。
 
 ## 7. 圧力制御
 まず、MD計算において圧力がどのように定義されているかを説明する。系の圧力Pは、  
@@ -507,5 +599,79 @@ $$
 $\boldsymbol{f}_i^{int}$ は原子間相互作用による力で、このPは、__内圧__ と呼ばれる。式(7.1)から、系の体積が運動すると考えれば圧力制御ができると考えた、__Andersen法__ を紹介したのち、立方体セルのみでなく任意の平行六面体にも適用可能にした __Parrinello-Rahman法__ を紹介して終わります。  
 
 ### 7.1 Andersen法
+まず、相似形変化のみ許された体積Vの立方体で、原子数Ｎのオリジナルセルを考える。この系において、原子間距離を規格化するため、原子座標を次のように無次元の単位として規格化する。  
+
+$$  
+\boldsymbol{r}_i' = \frac{\boldsymbol{r}_i}{V^{\frac{1}{3}}}\ \ \ \ \ \ (7.1.1)
+$$  
+
+拡張系のラグランジアンを定義すると、  
+
+$$  
+L=\sum_{i=1}^N \frac{1}{2}m_i V^{\frac{2}{3}}\boldsymbol{r}_i'^2-E_{total}(V^{\frac{1}{3}}\boldsymbol{r}_1',V^{\frac{1}{3}}\boldsymbol{r}_2', \cdots , V^{\frac{1}{3}}\boldsymbol{r}_N')+\frac{1}{2}W\dot{V}^2-P_{set}V  \ \ \ \ \ \ (7.1.2)
+$$  
+
+第1項と第2項は通常のラグランジアンと同じである。しかし、第3項と第4項は少々様相が異なる。第3項は、体積Vの変化のしやすさを定めるパラメータで質量にあたる。また、第4項は設定外圧 $P_{set}$ によるポテンシャルエネルギーを表す。  
+　さて、温度制御のときと同様、Euler-Lagrange方程式より原子座標 $\boldsymbol{r}_i'$ と体積Vのそれぞれの運動方程式は、  
+
+$$  
+m_i \ddot{\boldsymbol{r}}_i' = -\frac{1}{V^{\frac{1}{3}}}\frac{\partial E_{total}}{\partial \boldsymbol{r}_i}-\frac{2}{3}m_i \frac{\dot{V}}{V}\dot{\boldsymbol{r}}_i'\ \ \ \ \ \ (7.1.3)
+$$  
+
+$$  
+W\ddot{V}=\frac{1}{3V}\left[ \sum_{i=1}^N m_i V^{\frac{2}{3}}\boldsymbol{r}_i'^2 + \sum_{i=1}^N V^{\frac{1}{3}}\boldsymbol{r}_i' \cdot \left( -\frac{\partial E_{total}}{\partial \boldsymbol{r}_i} \right) \right]-P_{set}\ \ \ \ \ \ (7.1.4)
+$$  
+
+この運動方程式を解くことで圧力制御ができる。(7.1.4)式を見ると、右辺第1項が系の内圧に対応している（系のエネルギー÷系の体積＝内圧）ので、系の圧力が設定値 $P_{set}$ より大きければVを大きく、設定値 $P_{set}$ より小さければVを小さくすることで圧力を制御しているのである。
 
 ### 7.2 Parrinello-Rahman法
+&emsp;先ほどのAndersen法の大きな欠点は、__単位胞が立方体のときにしか適用できないこと__ である。これを解決するのがParrinello-Rahman法である。この方法は、立方体のみならず、平行六面体にも適用可能である。そのため、平行六面体の単位胞を張る3つのベクトル $\boldsymbol{u_1, u_2, u_3}$ を定義し、原子座標を次のようにベクトルの線形結合で表す。  
+
+$$  
+\boldsymbol{r}_i = \boldsymbol{u_1}r_{i1}' + \boldsymbol{u_2}r_{i2}' + \boldsymbol{u_3}r_{i3}'=\boldsymbol{hr}_i'\ \ \ \ \ \ (7.2.1)
+$$  
+
+$$  
+h=\left[\boldsymbol{u_1, u_2, u_3}\right]\ \ \ \ \ \ (7.2.2)
+$$  
+
+唐突に出てきた $\boldsymbol{h}$ は $\boldsymbol{r}_i'$ をデカルト座標 $\boldsymbol{r}_i$ に変換する行列である。さらに、この単位胞の体積Vは、  
+
+$$  
+V=|\boldsymbol{h}|=\boldsymbol{u_1}\cdot(\boldsymbol{u_2} \times \boldsymbol{u_3})\ \ \ \ \ \ (7.2.3)
+$$  
+
+で表され、原子間距離 $\boldsymbol{r_{ij}}$ の2乗は、  
+
+$$  
+|\boldsymbol{r_{ij}}|^2=\left( \boldsymbol{r_i}-\boldsymbol{r_j} \right)^T\left( \boldsymbol{r_i}-\boldsymbol{r_j} \right)=\left( \boldsymbol{r_i}'-\boldsymbol{r_j}' \right)^T\boldsymbol{h}^T\boldsymbol{h}\left( \boldsymbol{r_i}'-\boldsymbol{r_j}' \right)
+$$  
+
+$$  
+=\left( \boldsymbol{r_i}'-\boldsymbol{r_j}' \right)^T\boldsymbol{G}\left( \boldsymbol{r_i}'-\boldsymbol{r_j}' \right)\ \ \ \ \ \ (7.2.4)
+$$  
+
+と表され、 $\boldsymbol{G}$ は計量テンソルと呼ばれる。  
+　さて、ラグランジアンを導入しよう。ここで注意すべきは、 $\boldsymbol{h}$ も力学変数として考慮しければならない点である。格子が動き出すと単位ベクトルの大きさやなす角度が変化するためである。このことを念頭に、ラグランジアンは、  
+
+$$  
+L=\sum_{i=1}^N \frac{1}{2}m_i\boldsymbol{r}_i'^T\boldsymbol{G} \boldsymbol{r}_i'-E_{total}(\boldsymbol{h}\boldsymbol{r}_1',\boldsymbol{h}\boldsymbol{r}_2', \cdots , \boldsymbol{h}\boldsymbol{r}_N')+\frac{1}{2}W\sum_{\alpha=1}^3\sum_{\beta=1}^3\dot{h}_{\alpha\beta}-P_{set}V  \ \ \ \ \ \ (7.2.5)
+$$  
+
+Euler-Lagrangeの運動方程式より、座標と単位胞のそれぞれの運動方程式は、  
+
+$$  
+m_i\ddot{\boldsymbol{r}}_i'=-\boldsymbol{h}^{-1}\frac{\partial E_{total}}{\partial \boldsymbol{r}_i}-m_i \boldsymbol{G}^{-1}\dot{\boldsymbol{G}}\dot{\boldsymbol{r}}_i'\ \ \ \ \ \ (7.2.6)
+$$  
+
+$$  
+W\ddot{h}_{\alpha\beta}=\sum_{\gamma=1}^3 \left( \Pi_{\alpha\gamma}-P_{set}\delta_{\alpha\gamma} \right)V(\boldsymbol{h}^{-1})_{\beta\gamma}\ \ \ \ \ \ (7.2.7)
+$$  
+
+$\delta_{\alpha\gamma}$ はクロネッカーのデルタで、 $\Pi$ は内部応力テンソルと呼ばれる。中身は、  
+
+$$  
+\Pi_{\alpha\beta}=\frac{1}{V}\left[ \sum_{i=1}^N m_i (\boldsymbol{h}\dot{\boldsymbol{r}}_i')_{\alpha}(\boldsymbol{h}\dot{\boldsymbol{r}}_i')_{\beta} +\sum_{i=1}^N m_i \left(\frac{\partial E_{total}}{\partial \boldsymbol{r}_i}\right)_{\alpha}(\boldsymbol{h}\dot{\boldsymbol{r}}_i')_{\beta} \right]\ \ \ \ \ \ (7.2.8)
+$$  
+
+主に、(7.2.6)と(7.2.7)式を解くことで圧力を制御している。内圧を考えることで、単位胞の体積・形状をモニタリングすることができるため、様々な形状の単位胞の圧力を制御することができるのである。
