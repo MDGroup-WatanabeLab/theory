@@ -533,9 +533,9 @@ $$
 $$  
 
 
-$$  
+```math  
 \frac{d\boldsymbol{p}_i'}{dt'}=-\frac{\partial E_{total}}{\partial \boldsymbol{r}_i'}-\frac{1}{s'}\frac{ds'}{dt'}\boldsymbol{p}_i'\ \ \ \ \ \ \ \ (6.3.8)
-$$  
+```  
 
 
 $$  
@@ -543,9 +543,9 @@ $$
 $$  
 
 
-$$  
+```math  
 \frac{dp_s'}{dt'}=-\frac{\partial H}{\partial s}=\frac{1}{s'}\left( \sum^N_{i=1} \frac{\boldsymbol{p}_i'^2}{m_i}-gk_BT_{set} \right)-\frac{1}{s'}\frac{ds'}{dt'}p_s'\ \ \ \ \ \ \ \ (6.3.10)
-$$  
+```  
 
 と書き直せる。この式に対し、W. G. Hooverは新たな変数として、  
 
@@ -560,9 +560,9 @@ $$
 $$  
 
 
-$$  
+```math  
 \frac{d\boldsymbol{p}_i'}{dt'}=-\frac{\partial E_{total}}{\partial \boldsymbol{r}_i'}-\zeta\boldsymbol{p}_i'\ \ \ \ \ \ \ \ (6.3.13)
-$$  
+```  
 
 
 $$  
@@ -570,9 +570,9 @@ $$
 $$  
 
 
-$$  
+```math  
 \frac{d\zeta}{dt'}=\frac{1}{Q}\left( \sum^N_{i=1} \frac{\boldsymbol{p}_i'^2}{m_i}-gk_BT_{set} \right)\ \ \ \ \ \ \ \ (6.3.15)
-$$ 
+``` 
 
 (6.3.12)と(6.3.13)式は、[Langevin方程式](#61-langevin法)と同様、摩擦力を考慮した運動方程式であり、ζ が摩擦係数として、(6.3.15)式に依って変化する。  
 　さて、(6.3.15)式に注目してほしい。系の自由度は、原子数が N なら $g=3N$ となる。そして、 $\sum^N_{i=1} \frac{\boldsymbol{p}_i'^2}{m_i}$ は運動学的温度であった。したがって、次のように書き直せる。  
