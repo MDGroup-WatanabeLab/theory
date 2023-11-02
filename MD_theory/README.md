@@ -1,5 +1,5 @@
 # Molecular Dynamics 理論
-&emsp;本ドキュメントでは、LAMMPSやVASPを用いるにあたり、必要となるであろうMDの理論を説明する。参考文献は[先生が書いた本](https://www.morikita.co.jp/books/mid/092251)と筆者が作った[真空ゼミのスライド](https://waseda.app.box.com/file/1080558360236)である。後者については間違っている部分もあるので、前者を主に参考に
+&emsp;本ドキュメントでは、LAMMPSやVASPを用いるにあたり、必要となるであろうMDの理論を説明する。ただし、ほとんど概要しか述べないので、詳しい内容は本家の論文や、[先生が書いた本](https://www.morikita.co.jp/books/mid/092251)を参考にしてほしい。
 
 ## 目次
 1. [概要](#1-概要)
@@ -406,14 +406,130 @@ $$
 MD計算をする際、初期構造が不安定なもの（原子間距離が近すぎてポテンシャルが大きいなど）のとき、温度が10万Kなどに上昇して計算が終了してしまうことがある。もちろん、毎回行わなければいけないわけではないが、行った方が良い。この構造最適化についても、いくつか方法があるが、このドキュメントでは __最急降下法__ と __共役勾配法__ について紹介する。
 
 ### 5.1 最急降下法
+&emsp;下のような横軸が構造で縦軸がエネルギーのグラフにおいて、極小値を探す方法である。注意すべきは、__最小値ではなく極小値__ であるという点である。  
+　さて、どのようなアルゴリズムかなのか見ていこう。スライドの都合により、この節においてのみポテンシャルの記号はＶとしている。
+
+$$  
+r_{n+1}=r_n-h\cdot grad\ V(r_n)\ \ \ \ \ \ (5.1.1)
+$$  
+
+ぜひ、想像力を働かせてほしい。 $h$ は小さな正の数である。第2項の符号に応じて次のような移動をしていくことがわかる。
+
+- $grad\ V(r_n)$ が正なら、グラフは右肩上がりなので左へ
+- $grad\ V(r_n)$ が負なら、グラフは右肩下がりなので右へ
+
+このように、勾配に応じて移動する方向を変えることで、自然と極小値へたどり着けるというわけである。なお、この $h$ は無次元のパラメータであり、値の決め方は後述する。
+
+<div align = "center">    
+<img width="346" alt="スクリーンショット 2023-11-02 120445" src="https://github.com/MDGroup-WatanabeLab/theory/assets/138444525/7db26ec8-4470-41f9-a1c0-f777a9a14f47">
+</div>  
 
 ### 5.2 共役勾配法
+&emsp;先ほどの最急降下法よりは少し難しい。詳細な計算は[こちらの本](https://waseda.primo.exlibrisgroup.com/permalink/81SOKEI_WUNI/7jeksk/alma991000232149704032)を参照されたい。まず、ポテンシャル関数 $E(\boldsymbol{r})$ を1次のテイラー展開で近似すると、  
+
+$$  
+E(\boldsymbol{r}_n+\boldsymbol{d})=E(\boldsymbol{r}_n)+\nabla E(\boldsymbol{r}_n)^T \boldsymbol{d}\ \ \ \ \ \ (5.2.1)
+$$  
+
+ポテンシャルをより小さくする方向 $\boldsymbol{d}$ を決めていく。場合によっては、2次まで展開することもある。  
+
+$$  
+E(\boldsymbol{r}_n+\boldsymbol{d})=E(\boldsymbol{r}_n)+\nabla E(\boldsymbol{r}_n)^T \boldsymbol{d}+\frac{1}{2}\boldsymbol{d}^T\nabla\otimes\nabla E(\boldsymbol{r}_n) \boldsymbol{d}\ \ \ \ \ \ (5.2.2)
+$$  
+
+(5.2.2)式のうち、次の部分をヘッセ行列と呼ぶ。  
+
+$$  
+\boldsymbol{A}=\nabla\otimes\nabla E(\boldsymbol{r}_n)\ \ \ \ \ \ (5.2.3)
+$$  
+
+具体的な説明のため、エネルギーの関数を次のように設定する。  
+
+$$  
+E(\boldsymbol{r})=\frac{1}{2}\boldsymbol{r}^T \boldsymbol{A}\boldsymbol{r}-\boldsymbol{b}^T\boldsymbol{r}\ \ \ \ \ \ (5.2.4)
+$$  
+
+さらに、グラフの形を、下記のような谷とする。
+
+<div align = "center">    
+<img width="535" alt="スクリーンショット 2023-11-02 150848" src="https://github.com/MDGroup-WatanabeLab/theory/assets/138444525/598f7c5c-db3b-4557-9781-5d8e2fce0f55">
+</div>  
+
+先ほどの最急降下法や直線探索では、段階を一つずつ踏んでいきながら極小値を探すため時間がかかってしまう。これを解決するため、この谷を、エネルギーの等高線が同心円状になるよう、座標変換を行う。ポテンシャルのヘッセ行列を次のようにコレスキー分解すると、  
+
+$$  
+\boldsymbol{A}=\boldsymbol{P}^T\boldsymbol{P}\ \ \ \ \ \ (5.2.5)
+$$  
+
+$\boldsymbol{r}'=\boldsymbol{Pr}$ とおいたとき、(5.2.4)式は、  
+
+$$  
+E'(\boldsymbol{r}')=\frac{1}{2}\boldsymbol{r}'^T\boldsymbol{r}'-\boldsymbol{b}'^T\boldsymbol{r}'\ \ \ \ \ \ (5.2.6)
+$$  
+
+と変形できる。イメージは下記の通り。
+
+<div align = "center">    
+<img width="583" alt="スクリーンショット 2023-11-02 150405" src="https://github.com/MDGroup-WatanabeLab/theory/assets/138444525/ba9b40a9-d3ca-4d01-b6e9-944058ef9593">
+</div>  
+
+この状態で、 $-\nabla'E'(\boldsymbol{r}')$ を計算すれば、その先で極小値にたどり着けると考えられる。さて、ここで、 $\boldsymbol{P}$ を用いて再び元の座標系に戻すと、
+
+<div align = "center">    
+<img width="543" alt="スクリーンショット 2023-11-02 150751" src="https://github.com/MDGroup-WatanabeLab/theory/assets/138444525/bc47a8c6-6886-4f97-abc2-bfe11b80f16e">
+</div>  
+
+少しわかりづらいかもしれないが、元の座標に戻した時、 $\boldsymbol{d_0}$ と $\boldsymbol{d_1}$ は直交していないが、  
+
+$$  
+\boldsymbol{d_1}^T \boldsymbol{A} \boldsymbol{d_0}=0\ \ \ \ \ \ (5.2.7)
+$$  
+
+という関係を満たしており、 $\boldsymbol{d_0}$ と $\boldsymbol{d_1}$ は $\boldsymbol{A}$ に関して __互いに共役である__ という。つまり、これまでの探索方向とヘッセ行列に対して共役な方向を新たな探索方向とすれば、極小値へたどり着けるというわけである。  
+　では、「これまでの探索方向とヘッセ行列に対して共役な方向」はどのように求めるのだろうか。この際に用いられるのは、__Gram-Schmidtの直交化法__ である。例として2つのベクトル $\boldsymbol{u}, \boldsymbol{d}$ を考える。この2つのベクトルの内積を次のように定義する。  
+
+$$  
+(\boldsymbol{u}, \boldsymbol{d})=\boldsymbol{u}^T\boldsymbol{A} \boldsymbol{d}\ \ \ \ \ \ (5.2.8)
+$$  
+
+ここで、n本の線形独立なベクトル $\boldsymbol{u_0}, \boldsymbol{u_1}, \boldsymbol{u_2}, \cdots , \boldsymbol{u_{n-1}}$ が与えられたとき、互いに共役なn本のベクトルは $\boldsymbol{d_0}, \boldsymbol{d_1}, \boldsymbol{d_2}, \cdots , \boldsymbol{d_{n-1}}$ は、  
+
+$$  
+\boldsymbol{d_0}=\boldsymbol{u_0}\ \ \ \ \ \ (5.2.9) \\
+\boldsymbol{d_k}=\boldsymbol{u_k}-\sum_{i=0}^{k-1}\frac{(
+\boldsymbol{u_k}, \boldsymbol{d_i})}{(
+\boldsymbol{d_i}, \boldsymbol{d_i})}\boldsymbol{d_i}\ \ \ \ \ \ (5.2.10)
+$$  
+
+なお。共役勾配法では、 $\boldsymbol{u_i}=-\nabla E(\boldsymbol{r}_i)$ とする。したがって、位置を変更するたびに、その場における力を求め、それを $\boldsymbol{u}$ としている。ポテンシャルが(5.2.4)式で表されるとき、  
+
+$$  
+\boldsymbol{d_0}=-\nabla E(\boldsymbol{r}_0)\ \ \ \ \ \ (5.2.11) \\
+\boldsymbol{d_k}=-\nabla E(\boldsymbol{r}_k)-\beta_k\boldsymbol{d_{k-1}}\ \ \ \ \ \ (5.2.12)
+$$
+
+なお、
+
+$$
+\beta_k = \frac{\nabla E(\boldsymbol{r}_k)^T\boldsymbol{A} \boldsymbol{d_{k-1}}}{\boldsymbol{d_{k-1}}^T\boldsymbol{A} \boldsymbol{d_{k-1}}}\ \ \ \ \ \ (5.2.13)
+$$  
+
+である。探索方向を決める際、直前の探索方向のみを参照すればいいことがわかる。(5.2.13)式はヘッセ行列を使わずに計算できる。計算をすると、  
+
+$$  
+\beta_k = \frac{\nabla E(\boldsymbol{r}_k)^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}{\boldsymbol{d_{k-1}}^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}\ \ \ \ \ \ (5.2.14)\\
+\ \ \ \ \ =\frac{\nabla E(\boldsymbol{r}_k)^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}{|\nabla E(\boldsymbol{r}_{k-1})|^2}\ \ \ \ \ \ (5.2.15)\\
+=\frac{|\nabla E(\boldsymbol{r}_k)|^2}{\boldsymbol{d_{k-1}}^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}\ \ \ \ \ \ (5.2.16)\\
+=\frac{|\nabla E(\boldsymbol{r}_k)|^2}{|\nabla E(\boldsymbol{r}_{k-1})|^2}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (5.2.17)
+$$  
+
+この４つのうちどれかを用い、新たな探索方向を求めていくのが共役勾配法である。
 
 ## 6. 温度制御
 まず、MD計算において温度がどのように定義されているかを説明する。系の温度Tは、  
 
 $$  
-T \equiv \frac{2}{3Nk_B} \sum_{i=1}^N \frac{1}{2}m_iv_i^2
+T \equiv \frac{2}{3Nk_B} \sum_{i=1}^N \frac{1}{2}m_iv_i^2\ \ \ \ \ \ (6.1)
 $$  
 
 とあらわされ、__運動学的温度__ と呼ばれる。熱力学で定義されている、__熱力学温度__ とは異なるので注意である。  
