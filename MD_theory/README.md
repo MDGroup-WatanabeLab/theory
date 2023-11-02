@@ -503,25 +503,25 @@ $$
 
 なお。共役勾配法では、 $\boldsymbol{u_i}=-\nabla E(\boldsymbol{r}_i)$ とする。したがって、位置を変更するたびに、その場における力を求め、それを $\boldsymbol{u}$ としている。ポテンシャルが(5.2.4)式で表されるとき、  
 
-$$  
+```math  
 \boldsymbol{d_0}=-\nabla E(\boldsymbol{r}_0)\ \ \ \ \ \ (5.2.11) \\
 \boldsymbol{d_k}=-\nabla E(\boldsymbol{r}_k)-\beta_k\boldsymbol{d_{k-1}}\ \ \ \ \ \ (5.2.12)
-$$
+```
 
 なお、
 
-$$
+```math
 \beta_k = \frac{\nabla E(\boldsymbol{r}_k)^T\boldsymbol{A} \boldsymbol{d_{k-1}}}{\boldsymbol{d_{k-1}}^T\boldsymbol{A} \boldsymbol{d_{k-1}}}\ \ \ \ \ \ (5.2.13)
-$$  
+```  
 
 である。探索方向を決める際、直前の探索方向のみを参照すればいいことがわかる。(5.2.13)式はヘッセ行列を使わずに計算できる。計算をすると、  
 
-$$  
+```math  
 \beta_k = \frac{\nabla E(\boldsymbol{r}_k)^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}{\boldsymbol{d_{k-1}}^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}\ \ \ \ \ \ (5.2.14)\\
 \ \ \ \ \ =\frac{\nabla E(\boldsymbol{r}_k)^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}{|\nabla E(\boldsymbol{r}_{k-1})|^2}\ \ \ \ \ \ (5.2.15)\\
 =\frac{|\nabla E(\boldsymbol{r}_k)|^2}{\boldsymbol{d_{k-1}}^T\left( \nabla E(\boldsymbol{r}_k)-\nabla E(\boldsymbol{r}_{k-1}) \right)}\ \ \ \ \ \ (5.2.16)\\
 =\frac{|\nabla E(\boldsymbol{r}_k)|^2}{|\nabla E(\boldsymbol{r}_{k-1})|^2}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (5.2.17)
-$$  
+```  
 
 この４つのうちどれかを用い、新たな探索方向を求めていくのが共役勾配法である。
 
