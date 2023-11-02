@@ -6,8 +6,8 @@
 ```mermaid
 flowchart TB
     A(ML_FFファイルが存在すれば読み取る) --> B(計算開始)
-    B --> C(力場を用いた力　エネルギー　応力テンソル　不確実性の予測)
-    C --> D(予測誤差の基準を更新する)
+    B --> C(力場を用いて力、エネルギー、応力テンソルを予測)
+    C --> D(閾値の更新)
     D --> E(第一原理計算を実行するか決定)
     E --> |実行する|F(第一原理計算の実行)
     F --> G(データ選択)
@@ -76,24 +76,38 @@ flowchart TB
 ## 記述子    
 記述子：分子等の特徴を数値的に表現するもの
 
-&emsp;$`N_a`$ 個の原子からなる構造のポテンシャルエネルギー $`U`$ を局所エネルギー $`U_i`$ の和で近似する。  
+&emsp;$`N_a`$ 個の原子からなる構造のを考える。系のポテンシャルエネルギー $`U`$ は局所エネルギー $`U_i`$ の和で表す。  
 ```math
 U = \sum_{i=1}^{Na} U_i
 ```
-局所エネルギー $`U_i`$ は原子 $`i`$ の周囲の局所環境により決められると考える。局所環境を表すために原子 $`i`$ の周囲における原子分布を考える。この分布は、原子 $`i`$ を中心とした半径 $`R_{cut}`$ の円について、位置 $`r \ (r \leqq R_{cut})`$ において原子 $`j \ (j \neq i)`$ が存在する確率密度 $`\rho_i`$ で表される。  
+局所エネルギー $`U_i`$ は原子 $`i`$ の周囲の局所環境により決められる。局所環境を表すために原子 $`i`$ の周囲における原子分布を考える。この分布は、原子 $`i`$ から $`r \ (r \leqq R_{cut})`$ の位置に原子 $`j \ (j \neq i)`$ が存在する確率密度 $`\rho_i`$ で表される。  
 ```math
 \rho_i(\textbf{r}) = \sum_{j=1}^{N_a} f_{cut}(r_{ij})g(\textbf{r}-\textbf{r}_{ij})
 ```
-ここで、 $`f_{cut}`$ は半径 $`R_{cut}`$ より外側の情報を除去するカットオフ関数らしい（詳しくは不明だがsmooth cutoffのことっぽい？）。また、 $`r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|`$ 、 $`g(\textbf{r})`$ はデルタ関数 $`\delta(\textbf{r})`$ である。局所エネルギー $`U_i`$ を確率密度 $`\rho_i`$ の関数であるとすると、 $`U_i = F[\rho_i(\textbf{r})]`$ となる。  
-&emsp;これらを数値的に考える方法は、確率密度関数を有限個の基底関数の線形結合で表し、係数の関数に変換する方法である。この時導入するのが記述子であり、記述子は回転や平行移動に対して不変である必要がある。導入する記述子は以下で定義される動径分布関数 $`\rho_i^{(2)}(r)`$ である。
+ここで、 $`r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|`$ 、 $`g(\textbf{r})`$ はデルタ関数 $`\delta(\textbf{r})`$ である。また、 $`f_{cut}`$ はカットオフ関数であり、半径 $`R_{cut}`$ より外側の情報を除去するものである。カットオフ関数は以下のものが使用されている。
+```math
+f_{cut} = \begin{cases} 
+\frac{1}{2}(cos(\pi\frac{r_{ij}}{R_{cut}}) + 1) && (r_{ij} \le R_{cut}) \\ 
+0 && (r_{ij} > R_{cut})
+\end{cases}
+```
+局所エネルギー $`U_i`$ を確率密度 $`\rho_i`$ の関数であるとすると、 
+```math
+U_i = F[\rho_i(\textbf{r})]
+```
+と表される。  
+&emsp;局所環境を表すため二体分布関数と三体分布関数を導入する。ただし、記述子は回転や平行移動に対して不変である必要がある。二体分布関数 $`\rho_i^{(2)}(r)`$ は以下の式で表されるである。
 ```math
 \rho_i^{(2)}(r) = \frac{1}{4\pi}\int\rho_i(r\hat{\textbf{r}})d\hat{\textbf{r}}
 ```
-ここで、 $`\hat{\textbf{r}}`$ は $r$ の単位ベクトルを表す。しかし、動径分布関数には角度の情報がないため、角度の情報を追加した角度分布関数 $`\rho_i^{(3)}(r, s, \theta)`$ を導入する。角度分布関数は、原子 $`i`$ から距離 $`r`$ の位置において原子 $`j`$ が存在する確率密度、距離 $`s`$ の位置において原子 $`k`$ が存在する確率密度、 $`\angle kij`$ の角度 $`\theta`$ を用いて表す。
+ここで、 $`\hat{\textbf{r}}`$ は単位ベクトルを表す。上式は、原子 $`i`$ から距離 $`r`$ の位置に原子 $`j`$ を見つける確率を表している。二体分布関数には角度の情報がないため、角度の情報を追加した三体分布関数 $`\rho_i^{(3)}(r, s, \theta)`$ を導入する。三体分布関数は以下の式で表される。
 ```math
 \rho_i^{(3)}(r, s, \theta) = \int\int\delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta)\rho_i(r\hat{\textbf{r}})\rho_i^*(s\hat{\textbf{s}})d\hat{\textbf{r}}d\hat{\textbf{s}}
 ```
-$`\rho_i`$ が、
+上式は、原子 $`i`$ から距離 $`r`$ の位置において原子 $`j`$ が存在する確率密度、距離 $`s`$ の位置において原子 $`k`$ が存在する確率密度、 $`\angle kij`$ の角度 $`\theta`$ を用いて表す。
+
+
+ここで、 $`\rho_i`$ が、
 ```math
 \rho_i(\textbf{r}) = \sum_{l=0}^{L_{max}}\sum_{m=-l}^{l}\sum_{n=1}^{N_R^l}c_{nlm}^i\chi_{nl}(r)Y_{lm}(\hat{\textbf{r}})
 ```
@@ -117,7 +131,7 @@ P_{n \nu l}^i = \sqrt{\frac{8\pi^2}{2l+1}}\sum_{m=-l}^{l}c_{nlm}^ic_{\nu lm}^{i*
 ```math
 U_i = F[\rho_i^{(2)}(r), \rho_i^{(3)}(r, s, \theta)]
 ```
-続いて、 $`N_B`$ 個局所構造を局所参照構造とし、局所参照構造を記述子空間の係数  $`X_{i_B}`$ （[記述子行列 / 計画行列](#記述子行列)？）に変換する（局所参照構造のパラメータを行列で表すってことなのか？）。
+続いて、 $`N_B`$ 個の局所構造を局所参照構造とし、局所参照構造を記述子空間の係数  $`X_{i_B}`$ （[記述子行列 / 計画行列](#記述子行列)？）に変換する（局所参照構造のパラメータを行列で表すってことなのか？）。
 ```math
 F[\rho_i^{(2)}(r), \rho_i^{(3)}(r, s, \theta)] = \sum_{i_B=1}^{N_B}w_{i_B}K(\textbf{X}_i, \textbf{X}_{i_B})
 ```
@@ -153,14 +167,14 @@ n = 0, 1, 2, \cdots
 https://hyogo-bl.jp/docs/pdf/status-report/2020.08.26MI_Fujii.pdf  
 
 ## エネルギー、力、応力テンソル、不確実性の予測
-パラメータ $`w_{iB}`$ を求めるために、 $`N_{st}`$ 個の参照構造データセットのエネルギー、力、応力テンソルを知る必要がある。原子一つ当たりの総エネルギーは以下の式で表される。
+パラメータ $`w_{iB}`$ を求めるために、 $`N_{st}`$ 個の参照構造データセットのエネルギー、力、応力テンソルを知る必要がある。原子一つ当たりのエネルギーは以下の式で表される。
 ```math
 \frac{U^\alpha}{N_a^\alpha} = \sum_{i=1}^{N_a^\alpha}\frac{U_i^\alpha}{N_a^\alpha} = \sum_{i_B=1}^{N_B}w_{i_B}\sum_{i=1}^{N_a^\alpha}\frac{K(\textbf{X}_i^\alpha, \textbf{X}_{i_B})}{N_a^\alpha}
 ```
 ```math
 \forall\alpha = 1, \cdots, N_{st}
 ```
-ここで、上付き文字の $`\alpha`$ は「構造 $`\alpha`$ の」という意味である。また、 $`U^\alpha`$ は第一原理計算によるエネルギーである。また、論文において「原子ごとの第一原理計算エネルギー（FP eenrgy per atom）」と記述されていたが、第一原理計算によるエネルギーを原子数で割った $`\frac{U^\alpha}{N_a^\alpha}`$ のことを指すと解釈した。上記の関係を以下のように行列で表すことが出来る。
+ここで、上付き文字の $`\alpha`$ は「構造 $`\alpha`$ の」という意味である。また、 $`U^\alpha`$ は第一原理計算によるエネルギーである。上記の関係を以下のように行列で表すことが出来る。
 ```math
 \textbf{y}^\alpha = \boldsymbol{\phi}^\alpha\textbf{w}
 ```
@@ -208,9 +222,9 @@ p(\textbf{Y}|\sigma_v^2, \sigma_w^2) = \left(\frac{1}{\sqrt{2\pi\sigma_v^2}}\rig
 ```math
 E(\textbf{w}) = \frac{1}{2\sigma_v^2}\|\boldsymbol{\Phi}\textbf{w}-\textbf{Y}\|^2+\frac{1}{2\sigma_w^2}\|\textbf{w}\|^2
 ```
-GAPとの相違点
-GAP：カーネルリッジ回帰
-MLFF：ベイズ線形回帰
+- GAPとの相違点
+    - GAP：カーネルリッジ回帰
+    - MLFF：ベイズ線形回帰
 
 ## ベイズ線形回帰
 
@@ -220,7 +234,17 @@ https://qiita.com/Takayoshi_Makabe/items/8f6dcb25124b9dcb1ae8
 
 
 ## On-the-flyで第一原理計算の実行を決定するためのアルゴリズム
-予測された不確実性と以前にサンプリングされた履歴に基づく  
+![decision_dft](https://github.com/MDGroup-WatanabeLab/image_for_mdpython/assets/139113059/e2842a3b-5473-4d7b-950d-9feb42aa4037)
+<sub>参考文献1のFIG.5.を引用</sub>  
+
+上図において $`Var(x)`$ ,  $`E(x)`$ は $`x`$ の分散と平均を、 $\|\vec{x}\|_\infty$ は[無限大ノルム](https://manabitimes.jp/math/1269)を表す。また、 $\vec{\sigma}$ , $`\vec{s}`$ は力とspilling factors（？）である。加えて、 $`\varepsilon_{BE}`$ は計算開始時には0と設定される。  
+ベイズ誤差の閾値は新しいものから10個分の平均値となる。
+
+## スパース化
+参照構造データセットと局所参照構造を選択する際のアルゴリズムは以下のようになっている。スパース化の後に、CURアルゴリズムによるスパース化が行われている。
+
+![sparsification](https://github.com/MDGroup-WatanabeLab/image_for_mdpython/assets/139113059/8717042e-6b21-44c3-8454-d0b5d4319063)
+<sub>参考文献1のFIG.6.を引用</sub>  
 
 ## 参考文献
  1. [Jinnouchi, Ryosuke and Karsai, Ferenc and Kresse, Georg(2019), On-the-fly machine learning force field generation: Application to melting points, Phys. Rev. B, Vol.100,  No. 1, 014105. doi:10.1103/PhysRevB.100.014105](https://link.aps.org/doi/10.1103/PhysRevB.100.014105)  
@@ -228,12 +252,5 @@ https://qiita.com/Takayoshi_Makabe/items/8f6dcb25124b9dcb1ae8
 2. [ルジャンドル多項式の性質（証明付き）, 理数アラカルト, 2022.](https://risalc.info/src/Legendre-polynomial.html)
 
 3. [応力テンソルの導入, 物理の学校, 2019.](https://physics-school.com/stress-tensor/)
+  
 
-## メモ  
-説明予定  
-ポテンシャルエネルギー面（pes）  
-力場パラメータの最適化  
-不確実性の評価  
-不確実性の閾値の設定  
-スパース化  
-データ選択  
