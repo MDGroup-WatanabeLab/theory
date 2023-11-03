@@ -82,48 +82,50 @@ U = \sum_{i=1}^{Na} U_i
 ```
 局所エネルギー $`U_i`$ は原子 $`i`$ の周囲の局所環境により決められる。局所環境を表すために原子 $`i`$ の周囲における原子分布を考える。この分布は、原子 $`i`$ から $`r \ (r \leqq R_{cut})`$ の位置に原子 $`j \ (j \neq i)`$ が存在する確率密度 $`\rho_i`$ で表される。  
 ```math
-\rho_i(\textbf{r}) = \sum_{j=1}^{N_a} f_{cut}(r_{ij})g(\textbf{r}-\textbf{r}_{ij})
+\rho_i(\textbf{r}) = \sum_{j=1}^{N_a} \~{\rho}_{ij}(\textbf{r})
 ```
-ここで、 $`r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|`$ 、 $`g(\textbf{r})`$ はデルタ関数 $`\delta(\textbf{r})`$ である。また、 $`f_{cut}`$ はカットオフ関数であり、半径 $`R_{cut}`$ より外側の情報を除去するものである。カットオフ関数は以下のものが使用されている。
+```math
+\~{\rho}_{ij}(\textbf{r}) = f_{cut}(r_{ij})g(\textbf{r}-\textbf{r}_{ij})
+```
+ここで、 $`\~{\rho}_{ij}(\textbf{r})`$ は原子 $`i`$ から距離 $`r`$ の位置に原子 $`j`$ を見出す可能性（尤度）を表す。また、 $`r_{ij} = |\textbf{{r}}_{ij}| = |\textbf{r}_j-\textbf{r}_i|`$ 、 $`g(\textbf{r})`$ はデルタ関数 $`\delta(\textbf{r})`$ である。 $`f_{cut}`$ はカットオフ関数であり、半径 $`R_{cut}`$ より外側の情報を除去するものである。カットオフ関数は以下のものが使用されている。
 ```math
 f_{cut} = \begin{cases} 
 \frac{1}{2}(cos(\pi\frac{r_{ij}}{R_{cut}}) + 1) && (r_{ij} \le R_{cut}) \\ 
 0 && (r_{ij} > R_{cut})
 \end{cases}
-```
-局所エネルギー $`U_i`$ を確率密度 $`\rho_i`$ の関数であるとすると、 
-```math
-U_i = F[\rho_i(\textbf{r})]
-```
-と表される。  
-&emsp;局所環境を表すため二体分布関数と三体分布関数を導入する。ただし、記述子は回転や平行移動に対して不変である必要がある。二体分布関数 $`\rho_i^{(2)}(r)`$ は以下の式で表されるである。
+``` 
+&emsp;局所環境を表すため二体分布関数と三体分布関数を導入する。二体分布関数 $`\rho_i^{(2)}(r)`$ は以下の式で表されるである。
 ```math
 \rho_i^{(2)}(r) = \frac{1}{4\pi}\int\rho_i(r\hat{\textbf{r}})d\hat{\textbf{r}}
 ```
-ここで、 $`\hat{\textbf{r}}`$ は単位ベクトルを表す。上式は、原子 $`i`$ から距離 $`r`$ の位置に原子 $`j`$ を見つける確率を表している。二体分布関数には角度の情報がないため、角度の情報を追加した三体分布関数 $`\rho_i^{(3)}(r, s, \theta)`$ を導入する。三体分布関数は以下の式で表される。
+ここで、 $`\hat{\textbf{r}}`$ は単位ベクトルを表す。上式は、原子 $`i`$ から距離 $`r`$ の位置に原子 $`j`$ を見出す確率を表している。二体分布関数には角度の情報がないため、角度の情報を追加した三体分布関数 $`\rho_i^{(3)}(r, s, \theta)`$ を導入する。三体分布関数は以下の式で表される。
 ```math
-\rho_i^{(3)}(r, s, \theta) = \int\int\delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta)\rho_i(r\hat{\textbf{r}})\rho_i^*(s\hat{\textbf{s}})d\hat{\textbf{r}}d\hat{\textbf{s}}
+\begin{align}
+\rho_i^{(3)}(r, s, \theta) &= \int\int d\hat{\textbf{r}}d\hat{\textbf{s}} \delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta)\sum_{j \neq i}^{N_a}\sum_{k \neq i, j}^{N_a}\~{\rho}_{ij}(r\hat{\textbf{r}})\~{\rho}_{ik}(s\hat{\textbf{s}}) \\
+&=\int\int d\hat{\textbf{r}}d\hat{\textbf{s}} \delta(\hat{\textbf{r}}\cdot\hat{\textbf{s}}-cos\theta) \times \left[\rho_i(r\hat{\textbf{r}})\rho_i^*(s\hat{\textbf{s}})-\sum_{j \neq i}^{N_a}\~{\rho}_{ij}(r\hat{\textbf{r}})\~{\rho}_{ij}(s\hat{\textbf{s}})\right]
+\end{align}
 ```
-上式は、原子 $`i`$ から距離 $`r`$ の位置において原子 $`j`$ が存在する確率密度、距離 $`s`$ の位置において原子 $`k`$ が存在する確率密度、 $`\angle kij`$ の角度 $`\theta`$ を用いて表す。
-
-
-ここで、 $`\rho_i`$ が、
+上式は、原子 $`i`$ から距離 $`r`$ の位置に原子 $`j`$ 、距離 $`s`$ の位置に原子 $`k`$ を見出す確率を表す。ここで、 $`\theta`$ は $`\angle kij`$ の角度である。
+実際の計算では、 $`\~{\rho}_{ij}(\textbf{r})`$ が、
 ```math
-\rho_i(\textbf{r}) = \sum_{l=0}^{L_{max}}\sum_{m=-l}^{l}\sum_{n=1}^{N_R^l}c_{nlm}^i\chi_{nl}(r)Y_{lm}(\hat{\textbf{r}})
+\~{\rho}_{ij}(\textbf{r}) = \sum_{l=0}^{L_{max}}\sum_{m=-l}^{l}\sum_{n=1}^{N_R^l}c_{nlm}^i\chi_{nl}(r)Y_{lm}(\hat{\textbf{r}})
 ```
-と表されるとする。ここで、 $`c_{nlm}^i`$ は係数、 $`\chi_{nl}(r)`$ は動径基底関数、 $`Y_{lm}(\hat{\textbf{r}})`$ は球面調和関数である。また、 $`n`$ ,  $`l`$ ,  $`m`$ はそれぞれ主量子数、方位量子数、磁気量子数を表す。 $`\chi_{nl}(r)`$ には以下のような直交関係がある。  
+と表されるとする。ここで、 $`c_{nlm}^i`$ は展開係数、 $`\chi_{nl}(r)`$ は動径基底関数、 $`Y_{lm}(\hat{\textbf{r}})`$ は球面調和関数である。また、 $`n`$ ,  $`l`$ ,  $`m`$ はそれぞれ主量子数、方位量子数、磁気量子数を表す。 $`\chi_{nl}(r)`$ には以下のような直交関係がある。  
 ```math
 4\pi\int_{0}^{\infty}\chi_{nl}(r)\chi_{n'l}(r)r^2dr = \delta(n-n')
 ```
-$`\rho_i(\textbf{r})`$ を用いて $`\rho_i^{(2)}(r)`$ ,  $`\rho_i^{(3)}(r, s, \theta)`$ は以下のように変形される。
+$`\~{\rho}_{ij}(\textbf{r})`$ を用いて $`\rho_i^{(2)}(r)`$ ,  $`\rho_i^{(3)}(r, s, \theta)`$ は以下のように変形される。
 ```math
-\rho_i^{(2)}(r) = \frac{1}{\sqrt{4\pi}}\sum_{n=1}^{N_R^0}c_{n00}^i\chi_{nl}(r)
+\rho_i^{(2)}(r) = \frac{1}{\sqrt{4\pi}}\sum_{n=1}^{N_R^0}c_{n}^i\chi_{nl}(r)
 ```
 ```math
 \rho_i^{(3)}(r, s, \theta) = \sum_{l=1}^{L_{max}}\sum_{n=1}^{N_R^l}\sum_{\nu=1}^{N_R^l}\sqrt{\frac{2l+1}{2}} \times P_{n \nu l}^i\chi_{nl}(r)\chi_{\nu l}(s)P_l(cos\theta)
 ```
 ```math
-P_{n \nu l}^i = \sqrt{\frac{8\pi^2}{2l+1}}\sum_{m=-l}^{l}c_{nlm}^ic_{\nu lm}^{i*}
+c_n^i = c_{n00}^i
+```
+```math
+P_{n \nu l}^i = \sqrt{\frac{8\pi^2}{2l+1}}\sum_{m=-l}^{l} \left[c_{nlm}^ic_{\nu lm}^{i*}-\sum_{j \neq i}^{N_a}\~c_{nlm}^{ij}\~c_{\nu lm}^{ij*}\right]
 ```
 ここで、 $`P_l`$ は次数 $`l`$ の[ルジャンドル多項式](#ルジャンドル多項式)である。  
 
